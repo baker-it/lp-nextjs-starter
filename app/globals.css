@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #ffffff;
+  --fg: #0b0b0b;
+}
+
+html, body {
+  background: var(--bg);
+  color: var(--fg);
+}
+
+.container-xl {
+  @apply max-w-6xl mx-auto px-4;
+}
+
+.btn-primary {
+  @apply inline-flex items-center justify-center rounded-2xl px-6 py-3 font-semibold shadow-soft transition-transform hover:-translate-y-0.5 bg-brand.accent text-black;
+}
+
+.btn-secondary {
+  @apply inline-flex items-center justify-center rounded-2xl px-6 py-3 font-semibold shadow-soft transition-transform hover:-translate-y-0.5 bg-black text-white;
+}
