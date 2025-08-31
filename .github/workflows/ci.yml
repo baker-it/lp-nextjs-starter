@@ -1,0 +1,18 @@
+name: CI (lint, typecheck, build)
+on: { pull_request: { branches: [ main ] }, push: { branches: [ feature/**, fix/**, chore/** ] } }
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20, cache: 'npm' }
+      - run: npm ci
+      - run: npm run -s lint || (echo "::error title=Lint failed::Run 'npm run lint' locally to fix issues." && exit 1)
+      - run: npm run -s typecheck || (echo "::error title=Typecheck failed::Add a 'typecheck' script and fix errors." && exit 1)
+      - run: npm run -s build
+        env:
+          NEXT_PUBLIC_SANITY_PROJECT_ID: ${{ secrets.NEXT_PUBLIC_SANITY_PROJECT_ID }}
+          NEXT_PUBLIC_SANITY_DATASET: ${{ secrets.NEXT_PUBLIC_SANITY_DATASET }}
+          NEXT_PUBLIC_SANITY_API_VERSION: ${{ secrets.NEXT_PUBLIC_SANITY_API_VERSION }}
+          SANITY_REVALIDATE_SECRET: ${{ secrets.SANITY_REVALIDATE_SECRET }}
