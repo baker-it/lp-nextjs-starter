@@ -43,7 +43,7 @@ jobs:
           echo "HOST=$HOST" >> $GITHUB_ENV
           echo "Deploying Studio to https://$HOST.sanity.studio"
 
-            - name: Read project/dataset from sanity.cli.ts
+        - name: Read project/dataset from sanity.cli.ts
         run: |
           PROJECT_ID=$(sed -n "s/.*projectId: '\\(.*\\)'.*/\\1/p" sanity.cli.ts)
           DATASET=$(sed -n "s/.*dataset: '\\(.*\\)'.*/\\1/p" sanity.cli.ts)
