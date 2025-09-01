@@ -19,7 +19,6 @@
     "groq": "^3.0.0",
     "@sanity/image-url": "^1.0.2",
     "@portabletext/react": "^3.0.0",
-    "@sanity/next": "^3.0.0",
     "lottie-react": "^2.4.0",
     "clsx": "^2.1.0"
   },
