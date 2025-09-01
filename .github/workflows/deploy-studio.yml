@@ -12,6 +12,9 @@ on:
       - ".github/workflows/deploy-studio.yml"
 
 jobs:
+- name: Echo target URL
+  run: echo "Deploying Studio to https://${{ secrets.SANITY_STUDIO_HOST }}.sanity.studio"
+
   deploy:
     runs-on: ubuntu-latest
     steps:
