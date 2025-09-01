@@ -5,33 +5,35 @@ on:
   push:
     branches: [ main ]
     paths:
-      - "sanity.config.ts"
-      - "sanity.cli.ts"
-      - "sanity/**"
-      - ".github/workflows/deploy-studio.yml"
+      - sanity.config.ts
+      - sanity.cli.ts
+      - sanity/**
+      - .github/workflows/deploy-studio.yml
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: "Checkout"
         uses: actions/checkout@v4
 
-      - name: Setup Node
+      - name: "Setup Node"
         uses: actions/setup-node@v4
         with:
           node-version: 20
 
-      - name: Install minimal deps
+      - name: "Install minimal deps"
         run: npm i --no-audit --no-fund sanity @sanity/vision
 
-      - name: Sanity files present?
+      - name: "Sanity files present?"
         run: |
+          set -e
           test -f sanity.config.ts || (echo "MISSING sanity.config.ts" && exit 1)
           test -f sanity.cli.ts || echo "TIP: sanity.cli.ts is optional but recommended"
 
-      - name: Clean secrets (strip quotes/CRLF) and validate host
+      - name: "Clean secrets (strip quotes/CRLF) and validate host"
         run: |
+          set -e
           CLEAN_TOKEN=$(printf %s "${{ secrets.SANITY_AUTH_TOKEN }}" | tr -d '\r\n' | sed -e 's/^"//' -e 's/"$//' -e "s/^'//" -e "s/'$//")
           HOST_RAW="${{ secrets.SANITY_STUDIO_HOST }}"
           HOST=$(printf %s "$HOST_RAW" | tr -d '\r\n' | tr '[:upper:]' '[:lower:]' | sed -e 's/^"//' -e 's/"$//' -e "s/^'//" -e "s/'$//")
@@ -43,49 +45,50 @@ jobs:
           echo "HOST=$HOST" >> $GITHUB_ENV
           echo "Deploying Studio to https://$HOST.sanity.studio"
 
-        - name: Read project/dataset from sanity.cli.ts
+      - name: "Read project/dataset from sanity.cli.ts"
         run: |
+          set -e
           PROJECT_ID=$(sed -n "s/.*projectId: '\\(.*\\)'.*/\\1/p" sanity.cli.ts)
           DATASET=$(sed -n "s/.*dataset: '\\(.*\\)'.*/\\1/p" sanity.cli.ts)
+          if [ -z "$PROJECT_ID" ] || [ -z "$DATASET" ]; then
+            echo "Could not parse projectId/dataset from sanity.cli.ts"
+            exit 1
+          fi
           echo "PROJECT_ID=$PROJECT_ID" >> $GITHUB_ENV
           echo "DATASET=$DATASET" >> $GITHUB_ENV
           echo "Project: $PROJECT_ID / Dataset: $DATASET"
 
-      - name: Build Studio (non-interactive)
+      - name: "Build Studio (non-interactive)"
         env:
           SANITY_AUTH_TOKEN: ${{ env.SANITY_AUTH_TOKEN }}
           PROJECT_ID: ${{ env.PROJECT_ID }}
           DATASET: ${{ env.DATASET }}
         run: |
-          # Zbuduj statyczny bundle do .sanity (nie minifikujemy, żeby logi były czytelne)
+          set -e
           npx --yes sanity@latest build \
             --project "$PROJECT_ID" \
             --dataset "$DATASET" \
             --output-dir .sanity \
             --no-minify
-
-          # pokaż zawartość, żeby mieć pewność, że build istnieje
           ls -la .sanity
 
-      - name: Deploy built bundle to hosting
+      - name: "Deploy built bundle to hosting"
         env:
           SANITY_AUTH_TOKEN: ${{ env.SANITY_AUTH_TOKEN }}
           HOST: ${{ env.HOST }}
         run: |
-          # Wypchnij to, co zbudowaliśmy
-          npx --yes sanity@latest deploy "$HOST" \
-            --yes \
-            --source .sanity
+          set -e
+          npx --yes sanity@latest deploy "$HOST" --yes --source .sanity
 
-      - name: Verify hosted URL
+      - name: "Verify hosted URL"
         env:
           HOST: ${{ env.HOST }}
         run: |
-          # Poczekaj chwilę i sprawdź czy nie ma już 404
           for i in {1..12}; do
             code=$(curl -s -o /dev/null -w "%{http_code}" "https://$HOST.sanity.studio")
             echo "Try $i → HTTP $code"
             [ "$code" = "200" ] && exit 0
             sleep 5
           done
-          echo "Still not 200 after retries"; exit 1
+          echo "Still not 200 after retries"
+          exit 1
