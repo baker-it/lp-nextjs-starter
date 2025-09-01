@@ -76,15 +76,22 @@ jobs:
         env:
           SANITY_AUTH_TOKEN: ${{ env.SANITY_AUTH_TOKEN }}
           HOST: ${{ env.HOST }}
+          PROJECT_ID: ${{ env.PROJECT_ID }}
+          DATASET: ${{ env.DATASET }}
         run: |
           set -e
-          npx --yes sanity@latest deploy "$HOST" --yes --source .sanity
+          # próba w pełni nieinteraktywna
+          npx --yes sanity@latest deploy --host "$HOST" --yes --source .sanity || {
+            echo "CLI still prompted – answering via stdin…"
+            # fallback: podaj host przez stdin, gdyby mimo wszystko pytał
+            printf "%s\n" "$HOST" | npx --yes sanity@latest deploy --yes --source .sanity
+            }
 
       - name: "Verify hosted URL"
         env:
           HOST: ${{ env.HOST }}
         run: |
-          for i in {1..12}; do
+          for i in {1..20}; do
             code=$(curl -s -o /dev/null -w "%{http_code}" "https://$HOST.sanity.studio")
             echo "Try $i → HTTP $code"
             [ "$code" = "200" ] && exit 0
