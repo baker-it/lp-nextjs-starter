@@ -6,45 +6,33 @@ on:
     branches: [ main ]
     paths:
       - "sanity.config.ts"
+      - "sanity.cli.ts"
       - "sanity/**"
-      - "package.json"
-      - "package-lock.json"
       - ".github/workflows/deploy-studio.yml"
 
 jobs:
-- name: Echo target URL
-  run: echo "Deploying Studio to https://${{ secrets.SANITY_STUDIO_HOST }}.sanity.studio"
-
   deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # ⬇️ BEZ cache, żeby nie wymagało lockfile
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
 
-      # ⬇️ Fallback instalacji – jeśli masz lockfile, użyje go; jeśli nie, doinstaluje minimum do deployu Studia
-      - name: Prepare deps (Studio only)
-        run: |
-          if [ -f package-lock.json ]; then
-            npm ci
-          elif [ -f yarn.lock ]; then
-            corepack enable
-            yarn install --frozen-lockfile
-          elif [ -f pnpm-lock.yaml ]; then
-            corepack enable
-            pnpm install --frozen-lockfile
-          else
-            npm i --no-audit --no-fund sanity @sanity/vision
-          fi
+      - name: Install minimal deps
+        run: npm i --no-audit --no-fund sanity @sanity/vision
 
-      - name: Deploy Studio to Sanity hosting
+      - name: Show target
+        run: |
+          echo "Deploying Studio to https://${{ secrets.SANITY_STUDIO_HOST }}.sanity.studio"
+
+      - name: Sanity check
+        run: npx --yes sanity@latest check
+
+      - name: Deploy
         env:
           SANITY_AUTH_TOKEN: ${{ secrets.SANITY_AUTH_TOKEN }}
-          NEXT_PUBLIC_SANITY_PROJECT_ID: ${{ secrets.NEXT_PUBLIC_SANITY_PROJECT_ID }}
-          NEXT_PUBLIC_SANITY_DATASET: ${{ secrets.NEXT_PUBLIC_SANITY_DATASET }}
-        run: npx --yes sanity@latest deploy ${{ secrets.SANITY_STUDIO_HOST }} --yes
+        run: npx --yes sanity@latest deploy "${{ secrets.SANITY_STUDIO_HOST }}" --yes
