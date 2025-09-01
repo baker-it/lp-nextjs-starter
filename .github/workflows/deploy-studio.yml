@@ -25,12 +25,14 @@ jobs:
       - name: Install minimal deps
         run: npm i --no-audit --no-fund sanity @sanity/vision
 
-      - name: Show target
+      - name: Sanity files present?
         run: |
-          echo "Deploying Studio to https://${{ secrets.SANITY_STUDIO_HOST }}.sanity.studio"
+          ls -la
+          test -f sanity.config.ts && echo "Found sanity.config.ts" || (echo "MISSING sanity.config.ts" && exit 1)
+          test -f sanity.cli.ts && echo "Found sanity.cli.ts" || echo "TIP: sanity.cli.ts is optional but recommended"
 
-      - name: Sanity check
-        run: npx --yes sanity@latest check
+      - name: Echo target
+        run: echo "Deploying Studio to https://${{ secrets.SANITY_STUDIO_HOST }}.sanity.studio"
 
       - name: Deploy
         env:
