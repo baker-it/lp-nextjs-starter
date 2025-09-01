@@ -48,8 +48,8 @@ jobs:
       - name: "Read project/dataset from sanity.cli.ts"
         run: |
           set -e
-          PROJECT_ID=$(sed -n "s/.*projectId: '\\(.*\\)'.*/\\1/p" sanity.cli.ts)
-          DATASET=$(sed -n "s/.*dataset: '\\(.*\\)'.*/\\1/p" sanity.cli.ts)
+          PROJECT_ID=$(sed -n "s/.*projectId: '\([^']*\)'.*/\1/p" sanity.cli.ts)
+          DATASET=$(sed -n "s/.*dataset: '\([^']*\)'.*/\1/p" sanity.cli.ts)
           if [ -z "$PROJECT_ID" ] || [ -z "$DATASET" ]; then
             echo "Could not parse projectId/dataset from sanity.cli.ts"
             exit 1
