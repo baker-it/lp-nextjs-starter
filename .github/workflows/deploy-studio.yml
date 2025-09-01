@@ -43,14 +43,24 @@ jobs:
           echo "HOST=$HOST" >> $GITHUB_ENV
           echo "Deploying Studio to https://$HOST.sanity.studio"
 
-      - name: Deploy (non-interactive)
+      - name: Read project/dataset from sanity.cli.ts
+        run: |
+          PROJECT_ID=$(sed -n "s/.*projectId: '\\(.*\\)'.*/\\1/p" sanity.cli.ts)
+          DATASET=$(sed -n "s/.*dataset: '\\(.*\\)'.*/\\1/p" sanity.cli.ts)
+          echo "PROJECT_ID=$PROJECT_ID" >> $GITHUB_ENV
+          echo "DATASET=$DATASET" >> $GITHUB_ENV
+          echo "Project: $PROJECT_ID / Dataset: $DATASET"
+
+      - name: Deploy (force non-interactive + assign host)
         env:
           SANITY_AUTH_TOKEN: ${{ env.SANITY_AUTH_TOKEN }}
           HOST: ${{ env.HOST }}
+          PROJECT_ID: ${{ env.PROJECT_ID }}
+          DATASET: ${{ env.DATASET }}
         run: |
-          # Podejście 1: z argumentem
-          npx --yes sanity@latest deploy "$HOST" --yes || {
-            echo "CLI still asked for hostname, answering via stdin…"
-            # Podejście 2: podanie hosta przez stdin (na wypadek promptu)
-            printf "%s\n" "$HOST" | npx --yes sanity@latest deploy --yes
-          }
+          # Podajemy host przez stdin ORAZ jako flagę; dokładamy project/dataset
+          printf "%s\n" "$HOST" | npx --yes sanity@latest deploy \
+            --yes \
+            --host "$HOST" \
+            --project "$PROJECT_ID" \
+            --dataset "$DATASET"
