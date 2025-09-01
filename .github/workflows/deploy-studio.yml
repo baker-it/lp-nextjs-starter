@@ -18,12 +18,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      # ⬇️ BEZ cache, żeby nie wymagało lockfile
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: npm
 
+      # ⬇️ Fallback instalacji – jeśli masz lockfile, użyje go; jeśli nie, doinstaluje minimum do deployu Studia
       - name: Prepare deps (Studio only)
         run: |
           if [ -f package-lock.json ]; then
@@ -35,7 +36,6 @@ jobs:
             corepack enable
             pnpm install --frozen-lockfile
           else
-            npm init -y
             npm i --no-audit --no-fund sanity @sanity/vision
           fi
 
@@ -45,4 +45,3 @@ jobs:
           NEXT_PUBLIC_SANITY_PROJECT_ID: ${{ secrets.NEXT_PUBLIC_SANITY_PROJECT_ID }}
           NEXT_PUBLIC_SANITY_DATASET: ${{ secrets.NEXT_PUBLIC_SANITY_DATASET }}
         run: npx --yes sanity@latest deploy ${{ secrets.SANITY_STUDIO_HOST }} --yes
-
