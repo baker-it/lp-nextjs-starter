@@ -30,7 +30,7 @@ jobs:
           test -f sanity.config.ts || (echo "MISSING sanity.config.ts" && exit 1)
           test -f sanity.cli.ts || echo "TIP: sanity.cli.ts is optional but recommended"
 
-      - name: Clean secrets (strip quotes/CRLF) & validate host
+      - name: Clean secrets (strip quotes/CRLF) and validate host
         run: |
           CLEAN_TOKEN=$(printf %s "${{ secrets.SANITY_AUTH_TOKEN }}" | tr -d '\r\n' | sed -e 's/^"//' -e 's/"$//' -e "s/^'//" -e "s/'$//")
           HOST_RAW="${{ secrets.SANITY_STUDIO_HOST }}"
