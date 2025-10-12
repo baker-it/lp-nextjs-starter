@@ -3,8 +3,9 @@ import { groq } from 'next-sanity'
 
 const query = groq`*[_type=="redirect" && slug.current==$slug && enabled==true][0]{toUrl, status, appendUtm, utm}`
 
-export async function GET(_: Request, { params }: { params: { slug: string } }) {
-  const data = await client.fetch(query, { slug: params.slug }, { next: { revalidate: 60, tags: ['redirects'] } })
+export async function GET(_: Request, { params }: { params: Promise<{ slug: string }> }) {
+  const resolvedParams = await params
+  const data = await client.fetch(query, { slug: resolvedParams.slug }, { next: { revalidate: 60, tags: ['redirects'] } })
   if (!data?.toUrl) return new Response('Not found', { status: 404 })
 
   const base = data.toUrl

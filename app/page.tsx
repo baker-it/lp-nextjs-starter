@@ -29,7 +29,12 @@ function toSearchParams(sp: SP) {
   )
 }
 
-export default async function Page({ searchParams }: { searchParams: SP }) {
+export const dynamic = 'force-dynamic'
+
+export default async function Page({ searchParams }: { searchParams: Promise<SP> }) {
+  // Resolve searchParams promise (Next.js 15 requirement)
+  const resolvedSearchParams = await searchParams
+  
   // 1) Pobierz dane z Sanity; jak cokolwiek pójdzie nie tak → null
   const data = await client
     .fetch(firstLandingPage, {}, { next: { tags: ['landing'] } })
@@ -51,7 +56,7 @@ export default async function Page({ searchParams }: { searchParams: SP }) {
   }
 
   // 3) Jeśli są dane → render A (CMS) + A/B + tracking wariantu
-  const chosen = resolveVariant(data?.ab, toSearchParams(searchParams))
+  const chosen = resolveVariant(data?.ab, toSearchParams(resolvedSearchParams))
   const key = variantKey(data?.ab, chosen as 'A' | 'B')
   const hero = chosen === 'B' && data?.heroB ? data.heroB : data?.heroA
 

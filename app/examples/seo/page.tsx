@@ -14,6 +14,8 @@ export async function generateMetadata() {
   })
 }
 
+export const dynamic = 'force-dynamic'
+
 export default async function Page() {
   const data = await client.fetch(firstLandingPage, {}, { next: { tags: ['landing'] } })
   return (
