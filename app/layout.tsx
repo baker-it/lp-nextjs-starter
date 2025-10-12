@@ -2,6 +2,9 @@ import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import Script from 'next/script'
+import ConsentBanner from '../components/ConsentBanner'
+import { Analytics } from '@vercel/analytics/react'
+import { SpeedInsights } from '@vercel/speed-insights/next'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -12,12 +15,66 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const gtmId = process.env.NEXT_PUBLIC_GTM_ID
+  
+  // JSON-LD Schema.org
+  const organizationSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Baker IT",
+    "url": "https://baker-it.com",
+    "logo": "https://baker-it.com/logo.png",
+    "description": "Szkolenia fryzjerskie - elitarne techniki ze Wschodu",
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": "+48-XXX-XXX-XXX",
+      "contactType": "customer service",
+      "availableLanguage": ["Polish"]
+    }
+  }
+
+  const websiteSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Baker IT - Szkolenia Fryzjerskie",
+    "url": "https://baker-it.com",
+    "description": "Elitarne techniki fryzjerskie — lokalnie, po polsku, w ułamku ceny.",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Baker IT"
+    }
+  }
+  
   return (
     <html lang="pl">
       <head>
-        {/* GTM */}
+        {/* JSON-LD Schema.org */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
+        />
+        
+        {/* GTM with Consent Mode v2 */}
         {gtmId && (
           <>
+            <Script id="gtm-consent" strategy="beforeInteractive">
+              {`
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                
+                // Default consent state (deny all except necessary)
+                gtag('consent', 'default', {
+                  'analytics_storage': 'denied',
+                  'ad_storage': 'denied',
+                  'ad_user_data': 'denied',
+                  'ad_personalization': 'denied',
+                  'wait_for_update': 500
+                });
+              `}
+            </Script>
             <Script id="gtm" strategy="afterInteractive">
               {`
                 window.dataLayer = window.dataLayer || [];
@@ -58,6 +115,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </noscript>
         )}
         {children}
+        <ConsentBanner />
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   )

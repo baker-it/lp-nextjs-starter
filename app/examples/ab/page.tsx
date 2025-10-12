@@ -8,9 +8,12 @@ import Pricing from '@/components/cms/Pricing'
 import FAQ from '@/components/cms/FAQ'
 import { ExperimentProvider } from '@/lib/experiment'
 
-export default async function ABExample({ searchParams }: { searchParams: Record<string, string | string[] | undefined> }) {
+export const dynamic = 'force-dynamic'
+
+export default async function ABExample({ searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> }) {
   const data = await client.fetch(firstLandingPage, {}, { next: { tags: ['landing'] } })
-  const sp = new URLSearchParams(Object.entries(searchParams).flatMap(([k,v]) => v === undefined ? [] : Array.isArray(v) ? v.map(val => [k, val]) : [[k, v]]))
+  const resolvedSearchParams = await searchParams
+  const sp = new URLSearchParams(Object.entries(resolvedSearchParams).flatMap(([k,v]) => v === undefined ? [] : Array.isArray(v) ? v.map(val => [k, val]) : [[k, v]]))
   const chosen = resolveVariant(data?.ab, sp)
   const key = variantKey(data?.ab, chosen)
   const hero = chosen === 'B' && data?.heroB ? data.heroB : data?.heroA

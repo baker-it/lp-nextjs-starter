@@ -12,6 +12,8 @@ export const metadata = {
   robots: { index: false, follow: false },
 }
 
+export const dynamic = 'force-dynamic'
+
 export default async function ThankYouPage() {
   const data = await client.fetch(firstLandingPage, {}, { next: { tags: ['landing'] } })
   return (
