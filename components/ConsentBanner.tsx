@@ -8,6 +8,13 @@ interface ConsentPreferences {
   marketing: boolean
 }
 
+// Extend Window interface for gtag
+declare global {
+  interface Window {
+    gtag?: (...args: any[]) => void
+  }
+}
+
 export default function ConsentBanner() {
   const [showBanner, setShowBanner] = useState(false)
   const [preferences, setPreferences] = useState<ConsentPreferences>({
@@ -95,4 +102,9 @@ export default function ConsentBanner() {
     </div>
   )
 }
+
+
+
+
+
 
