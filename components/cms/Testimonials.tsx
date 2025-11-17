@@ -1,33 +1,32 @@
-'use client'
-import Image from 'next/image'
-import { AnimWrap } from '@/components/cms/Anim'
-
 export default function Testimonials({ data }: { data: any }) {
   if (!data?.items?.length) return null
   return (
-    <section className="py-12 bg-muted/20">
-      <div className="container grid gap-6 md:grid-cols-3">
-        {data.items.map((t: any, i: number) => (
-          <AnimWrap key={i} anim={t.animation} className="rounded-2xl bg-white p-6 shadow">
-            <div className="flex items-center gap-3">
-              {t.photo?.asset?.url && (
-                <Image 
-                  src={`/_next/image?url=${encodeURIComponent(t.photo.asset.url)}&w=96&q=75`} 
-                  alt={t.author || ''} 
-                  width={48} 
-                  height={48} 
-                  className="h-12 w-12 rounded-full object-cover" 
-                />
-              )}
-              <div>
-                <div className="font-semibold">{t.author}</div>
-                {t.role && <div className="text-sm opacity-70">{t.role}</div>}
-                {t.location && <div className="text-xs opacity-60">{t.location}</div>}
+    <section className="py-16 md:py-20 px-4 bg-gray-50">
+      <div className="max-w-6xl mx-auto">
+        <h2 className="text-3xl md:text-4xl font-bold text-gray-900 text-center mb-12">
+          Co mówią uczestniczki?
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {data.items.map((testimonial: any, i: number) => (
+            <div key={i} className="bg-white shadow-lg rounded-xl p-6 border border-gray-100">
+              <p className="text-lg text-gray-700 mb-4 italic">"{testimonial.quote}"</p>
+              <div className="flex items-center gap-3">
+                {testimonial.photo?.asset?.url && (
+                  <img 
+                    src={testimonial.photo.asset.url} 
+                    alt={testimonial.author || ''}
+                    className="w-12 h-12 rounded-full object-cover" 
+                  />
+                )}
+                <div>
+                  <p className="font-bold text-gray-900">{testimonial.author}</p>
+                  {testimonial.role && <p className="text-sm text-gray-600">{testimonial.role}</p>}
+                  {testimonial.location && <p className="text-sm text-gray-600">{testimonial.location}</p>}
+                </div>
               </div>
             </div>
-            <p className="mt-4 text-sm opacity-90">"{t.quote}"</p>
-          </AnimWrap>
-        ))}
+          ))}
+        </div>
       </div>
     </section>
   )
