@@ -65,9 +65,9 @@ export default async function Page({ searchParams }: { searchParams: Promise<SP>
       <main>
         <HeroCMS hero={hero} />
         <USPList items={data?.usps} />
-        <Testimonials items={data?.socialProof} />
+        <Testimonials data={{ items: data?.socialProof }} />
         <PricingCMS plans={data?.pricing} />
-        <FAQCMS items={data?.faq} />
+        <FAQCMS data={{ items: data?.faq }} />
       </main>
     </ExperimentProvider>
   )
