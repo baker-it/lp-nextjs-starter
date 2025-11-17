@@ -23,9 +23,9 @@ export default async function ABExample({ searchParams }: { searchParams: Promis
       <main>
         <HeroCMS hero={hero} />
         <USPList items={data?.usps} />
-        <Testimonials items={data?.socialProof} />
+        <Testimonials data={{ items: data?.socialProof }} />
         <Pricing plans={data?.pricing} />
-        <FAQ items={data?.faq} />
+        <FAQ data={{ items: data?.faq }} />
       </main>
     </ExperimentProvider>
   )
