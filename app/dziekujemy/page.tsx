@@ -31,7 +31,7 @@ export default async function ThankYouPage() {
         <SectionView keyName="pricing_thanks"><Pricing plans={data.pricing} /></SectionView>
       )}
       {Array.isArray(data?.faq) && data.faq.length > 0 && (
-        <SectionView keyName="faq_thanks" as="section" id="faq"><FAQ items={data.faq} /></SectionView>
+        <SectionView keyName="faq_thanks" as="section" id="faq"><FAQ data={{ items: data.faq }} /></SectionView>
       )}
     </main>
   )
