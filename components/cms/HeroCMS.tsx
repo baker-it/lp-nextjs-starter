@@ -22,7 +22,7 @@ export default function HeroCMS({ hero }: { hero: any }) {
         <div className="text-center md:text-left">
           {hero.eyebrow && <p className="text-sm uppercase tracking-wide text-muted-foreground">{hero.eyebrow}</p>}
           {hero.headline && <h1 className="mt-2 text-4xl font-bold leading-tight md:text-5xl">{hero.headline}</h1>}
-          {hero.subheading && <p className="mt-4 text-base opacity-80 md:text-lg">{hero.subheading}</p>}
+          {hero.subheadline && <p className="mt-4 text-base opacity-80 md:text-lg">{hero.subheadline}</p>}
           <div className="mt-6 flex flex-wrap items-center justify-center gap-3 md:justify-start">
             {hero.ctaPrimary && <CTA cta={hero.ctaPrimary} />}
             {hero.ctaSecondary && <CTA cta={hero.ctaSecondary} />}

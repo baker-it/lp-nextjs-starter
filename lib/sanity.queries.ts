@@ -55,6 +55,68 @@ export const firstLandingPage = groq`*[_type == "landingPage"] | order(_createdA
   seo
 }`
 
+// New query for updated schema (A/B/C variant system)
+export const newLandingPageQuery = groq`*[_type == "landingPage" && slug.current == $slug && isActive == true][0]{
+  _id,
+  _type,
+  _createdAt,
+  _updatedAt,
+  title,
+  variant,
+  slug,
+  seo {
+    metaTitle,
+    metaDescription,
+    ogImage,
+    canonical
+  },
+  hero {
+    headline,
+    subheadline,
+    ctaPrimary { text, url, style },
+    ctaSecondary { text, url, style }
+  },
+  painPoints {
+    items[] {
+      problem,
+      costImpact,
+      solution
+    }
+  },
+  methodology {
+    preTraining,
+    day1,
+    day2,
+    postTraining
+  },
+  benefits {
+    forStylist,
+    forClient
+  },
+  testimonials {
+    items[] {
+      quote,
+      author,
+      role,
+      location,
+      photo
+    }
+  },
+  faqs {
+    items[] {
+      question,
+      answer
+    }
+  },
+  ctaSection {
+    headline,
+    subheadline,
+    urgencyMessage,
+    cta { text, url, style },
+    variant
+  }
+}`
+
 // TypeScript types for query results
 export interface HeroData {
   headline?: string
