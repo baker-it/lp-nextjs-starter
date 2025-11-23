@@ -1,5 +1,6 @@
 // Documents
 import landingPage from './documents/landingPage'
+import mediaAsset from './documents/mediaAsset'
 
 // Objects
 import seo from './objects/seo'
@@ -22,6 +23,7 @@ import anim from './objects/anim'
 const schemas = [
   // Main Documents
   landingPage,
+  mediaAsset,
   
   // Objects
   seo,
