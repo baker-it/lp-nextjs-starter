@@ -2,6 +2,7 @@
 import { defineConfig } from 'sanity'
 import { deskTool } from 'sanity/desk'
 import { visionTool } from '@sanity/vision'
+import { media } from 'sanity-plugin-media'
 import schemas from './sanity/schemas'
 
 // ✅ Dwa źródła prawdy: najpierw SANITY_STUDIO_*, inaczej wpiszemy domyślne:
@@ -14,6 +15,6 @@ export default defineConfig({
   projectId: PROJECT_ID,
   dataset: DATASET,
   // basePath: '/studio', // ← zostaw jeśli osadzasz Studio w Next.js; dla sanity.studio zbędne
-  plugins: [deskTool(), visionTool()],
+  plugins: [deskTool(), visionTool(), media()],
   schema: { types: schemas },
 })
