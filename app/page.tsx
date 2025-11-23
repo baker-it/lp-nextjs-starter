@@ -1,5 +1,7 @@
-// app/page.tsx
-import { client } from '@/lib/sanity.client'
+import { sanityFetch } from '@/lib/sanity.fetch'
+import { homePageQuery } from '@/lib/sanity.queries'
+
+// CMS Components
 import HeroCMS from '@/components/cms/HeroCMS'
 import PainPoints from '@/components/cms/PainPoints'
 import Methodology from '@/components/cms/Methodology'
@@ -8,7 +10,7 @@ import Testimonials from '@/components/cms/Testimonials'
 import FAQ from '@/components/cms/FAQ'
 import CTASection from '@/components/cms/CTASection'
 
-// Fallback components if no Sanity data
+// Fallback Components (legacy)
 import Hero from '@/components/Hero'
 import USP from '@/components/USP'
 import SocialProof from '@/components/SocialProof'
@@ -17,64 +19,15 @@ import MidCTA from '@/components/MidCTA'
 import FAQFallback from '@/components/FAQ'
 import FinalCTA from '@/components/FinalCTA'
 
-export const dynamic = 'force-dynamic'
+export const revalidate = false
 
 export default async function Page() {
   // Fetch the active landing page with new schema
-  const data = await client
-    .fetch(
-      `*[_type == "landingPage" && isActive == true] | order(_createdAt desc)[0]{
-        hero { 
-          headline, 
-          subheadline, 
-          ctaPrimary { text, url, style }, 
-          ctaSecondary { text, url, style },
-          heroImage
-        },
-        painPoints { 
-          items[] { 
-            problem, 
-            costImpact, 
-            solution 
-          } 
-        },
-        methodology { 
-          preTraining, 
-          day1, 
-          day2, 
-          postTraining 
-        },
-        benefits { 
-          forStylist, 
-          forClient 
-        },
-        testimonials { 
-          items[] { 
-            quote, 
-            author, 
-            role, 
-            location, 
-            photo 
-          } 
-        },
-        faqs { 
-          items[] { 
-            question, 
-            answer 
-          } 
-        },
-        ctaSection { 
-          headline, 
-          subheadline, 
-          urgencyMessage, 
-          cta { text, url, style },
-          variant
-        }
-      }`,
-      {},
-      { next: { tags: ['landing'] } }
-    )
-    .catch(() => null)
+  const data = await sanityFetch<any>(
+    homePageQuery,
+    {},
+    ['landing-page', 'home']
+  )
 
   // If no data from Sanity, show fallback hardcoded content
   if (!data) {

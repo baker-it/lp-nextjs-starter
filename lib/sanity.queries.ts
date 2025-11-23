@@ -117,6 +117,68 @@ export const newLandingPageQuery = groq`*[_type == "landingPage" && slug.current
   }
 }`
 
+// Query for Homepage (fetches the first active landing page)
+export const homePageQuery = groq`*[_type == "landingPage" && isActive == true] | order(_createdAt desc)[0]{
+  _id,
+  _type,
+  _createdAt,
+  _updatedAt,
+  title,
+  variant,
+  slug,
+  seo {
+    metaTitle,
+    metaDescription,
+    ogImage,
+    canonical
+  },
+  hero {
+    headline,
+    subheadline,
+    ctaPrimary { text, url, style },
+    ctaSecondary { text, url, style }
+  },
+  painPoints {
+    items[] {
+      problem,
+      costImpact,
+      solution
+    }
+  },
+  methodology {
+    preTraining,
+    day1,
+    day2,
+    postTraining
+  },
+  benefits {
+    forStylist,
+    forClient
+  },
+  testimonials {
+    items[] {
+      quote,
+      author,
+      role,
+      location,
+      photo
+    }
+  },
+  faqs {
+    items[] {
+      question,
+      answer
+    }
+  },
+  ctaSection {
+    headline,
+    subheadline,
+    urgencyMessage,
+    cta { text, url, style },
+    variant
+  }
+}`
+
 // TypeScript types for query results
 export interface HeroData {
   headline?: string
