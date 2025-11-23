@@ -3,13 +3,19 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { Clock, Check, Star, ArrowRight, AlertTriangle, X } from 'lucide-react'
 
+// --- IMAGE HELPER ---
+// Po wgraniu zdjęć do Sanity Media Library:
+// 1. Kliknij prawym na obrazek → "Copy Image URL"
+// 2. Wklej URL poniżej (format: https://cdn.sanity.io/images/nfon9ew1/production/[asset-id]-[dimensions].jpg)
+// 3. Next.js automatycznie zoptymalizuje obrazy (WebP, responsive sizes)
+
 // --- MOCK DATA FROM NOTION ---
 const MOCK_DATA = {
   hero: {
     headline: "OPANUJ SZTUKĘ AIRTOUCH. ZDEFINIUJ SWOJĄ PRZYSZŁOŚĆ.",
     subheadline: "Definitywne szkolenie dla profesjonalnych stylistów poszukujących precyzji, naturalnych efektów i znacząco wyższych przychodów z usług koloryzacji.",
     cta: "ZAPISZ SIĘ NA SZKOLENIE",
-    image: "https://images.unsplash.com/photo-1562322140-8baeececf3df?auto=format&fit=crop&w=1600&q=80" // Placeholder
+    image: "https://images.unsplash.com/photo-1562322140-8baeececf3df?auto=format&fit=crop&w=1600&q=80" // TODO: Replace with Sanity CDN URL
   },
   problem: {
     headline: "OGRANICZENIA TRADYCYJNEGO BALEYAGE I FOLII",
@@ -55,22 +61,22 @@ const MOCK_DATA = {
       {
         title: "Niezrównana Integralność Włosów",
         description: "50% redukcja chemicznego uszkodzenia. Klientki odchodzą ze zdrowszymi, mocniejszymi włosami - co prowadzi do wyższej retencji i poleceń.",
-        image: "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=800&q=80"
+        image: "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=800&q=80" // TODO: Sanity CDN - Benefit 1
       },
       {
         title: "Ultra-Naturalny Odrost",
         description: "Bezszwowe mieszanie oznacza 6-12 miesięcy między wizytami vs 3-4 miesiące przy tradycyjnym baleyage. Mniej maintenance = szczęśliwsze klientki.",
-        image: "https://images.unsplash.com/photo-1522337660859-02fbefca4702?auto=format&fit=crop&w=800&q=80"
+        image: "https://images.unsplash.com/photo-1522337660859-02fbefca4702?auto=format&fit=crop&w=800&q=80" // TODO: Sanity CDN - Benefit 2
       },
       {
         title: "Powtarzalna Precyzja",
         description: "Systematyczny proces eliminuje nieprzewidywalność. Każda aplikacja AirTouch daje profesjonalne, spójne rezultaty - niezależnie od tekstury włosów.",
-        image: "https://images.unsplash.com/photo-1595476106812-75456150c590?auto=format&fit=crop&w=800&q=80"
+        image: "https://images.unsplash.com/photo-1595476106812-75456150c590?auto=format&fit=crop&w=800&q=80" // TODO: Sanity CDN - Benefit 3
       },
       {
         title: "Premium Ceny Usług",
         description: "Pobieraj 400-600 zł za sesję (vs 200-250 zł za balayage). AirTouch pozycjonuje Cię jako specjalistkę, nie generalistkę.",
-        image: "https://images.unsplash.com/photo-1580618672591-eb180b1a973f?auto=format&fit=crop&w=800&q=80"
+        image: "https://images.unsplash.com/photo-1580618672591-eb180b1a973f?auto=format&fit=crop&w=800&q=80" // TODO: Sanity CDN - Benefit 4
       }
     ]
   },
@@ -81,14 +87,14 @@ const MOCK_DATA = {
       author: "Sarah Jenkins",
       role: "Senior Stylist"
     },
-    beforeImage: "https://images.unsplash.com/photo-1634449571010-02389ed0f9b0?auto=format&fit=crop&w=800&q=80",
-    afterImage: "https://images.unsplash.com/photo-1562322140-8baeececf3df?auto=format&fit=crop&w=800&q=80"
+    beforeImage: "https://images.unsplash.com/photo-1634449571010-02389ed0f9b0?auto=format&fit=crop&w=800&q=80", // TODO: Sanity CDN - Before
+    afterImage: "https://images.unsplash.com/photo-1562322140-8baeececf3df?auto=format&fit=crop&w=800&q=80" // TODO: Sanity CDN - After
   },
   instructor: {
     headline: "INSTRUKTORKA",
     name: "Anya Petrova",
     title: "Certified AirTouch Master Educator",
-    image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=800&q=80",
+    image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=800&q=80", // TODO: Sanity CDN - Instructor
     bio: [
       "Certyfikowana przez VS Academy (Vladimir Sarbashev)",
       "8+ lat doświadczenia w koloryzacji",
