@@ -1,0 +1,407 @@
+# Landing Page Next.js 15 + Sanity CMS - Cursor AI Rules
+
+## 🎯 Project Overview
+
+Modern landing page system with Sanity CMS, webhook-based ISR, and production-ready deployment.
+
+**Status:** ✅ PRODUCTION (Nov 23, 2024)  
+**Build:** ✅ Passing | TypeScript: ✅ Strict | Linting: ✅ Clean  
+**Tech Stack:** Next.js 15.5.4, React 19.2.0, Sanity 3.60.0, TypeScript 5.5.4
+
+---
+
+## 🏗️ Architecture Decisions
+
+### ✅ Single-CMS Architecture (Sanity Only)
+
+**Decision Date:** November 2024  
+**Status:** Production Verified
+
+**Rationale:**
+- Sanity = single source of truth (content creation + production delivery)
+- Webhook + tag-based revalidation = instant updates (~5-10s)
+- No dual-CMS sync complexity
+- AI-native features (Canvas, AI Assist) built-in
+
+**Key Configuration:**
+```typescript
+// lib/sanity.client.ts
+export const client = createClient({
+  useCdn: false,  // ← CRITICAL for ISR
+  apiVersion: '2024-01-01',
+  perspective: 'published'
+});
+```
+
+### ✅ Tag-Based Revalidation (NOT Path-Based)
+
+**Cache Tags Strategy:**
+- `'landing-page'` → Global (all pages)
+- `'variant:{slug}'` → Granular (specific page only)
+
+**Why NOT revalidatePath():**
+- Too broad - invalidates unnecessary pages
+- Less granular control
+- Tag-based = industry standard (Puma, AT&T use this)
+
+**Implementation:**
+```typescript
+// app/[variant]/page.tsx
+export const revalidate = false; // ← Disable time-based
+
+const data = await sanityFetch(
+  query,
+  { slug },
+  ['landing-page', `variant:${slug}`] // ← Cache tags
+);
+```
+
+### ✅ Webhook Security (HMAC-SHA256)
+
+**Flow:**
+```
+Sanity publish
+  ↓
+POST /api/revalidate
+  ↓
+HMAC validation (SHA256)
+  ↓
+revalidateTag()
+  ↓
+Fresh content (~5-10s)
+```
+
+**Implementation:**
+```typescript
+// app/api/revalidate/route.ts
+const hmac = createHmac('sha256', secret);
+hmac.update(body);
+const expected = hmac.digest('hex');
+if (signature !== expected) return 401;
+```
+
+---
+
+## 📋 Development Rules
+
+### TypeScript Strict Mode
+
+```typescript
+// tsconfig.json
+{
+  "strict": true,
+  "noUncheckedIndexedAccess": true,
+  "forceConsistentCasingInFileNames": true
+}
+```
+
+**All types must be defined:**
+- No `any` (use `unknown` or proper types)
+- Interface for all Sanity documents
+- Export types from `lib/sanity.queries.ts`
+
+### Next.js 15 Patterns
+
+**Server Components (default):**
+```typescript
+// app/[variant]/page.tsx
+export default async function Page({ params }: PageProps) {
+  const { variant } = await params; // ← Next.js 15: params is Promise
+  // ...
+}
+```
+
+**Route Handlers:**
+```typescript
+// app/api/*/route.ts
+export async function POST(req: Request) {
+  // Use Request/Response, not NextRequest/NextResponse
+}
+```
+
+**Metadata Generation:**
+```typescript
+export async function generateMetadata({ params }: PageProps) {
+  const { variant } = await params;
+  // Return metadata object
+}
+```
+
+### Sanity Integration
+
+**DO:**
+- ✅ Use `sanityFetch()` wrapper (automatic cache tags)
+- ✅ Define GROQ queries in `lib/sanity.queries.ts`
+- ✅ Export TypeScript interfaces for all schemas
+- ✅ Use `useCdn: false` (critical for ISR)
+
+**DON'T:**
+- ❌ Call `client.fetch()` directly (bypasses cache tags)
+- ❌ Use `useCdn: true` (breaks revalidation)
+- ❌ Forget to add cache tags
+- ❌ Use `revalidatePath()` (use `revalidateTag()`)
+
+### Git Workflow
+
+**Branch Strategy:**
+- `main` = Production (deployed to Vercel)
+- `development` = Active development
+- Feature branches → PR to development
+
+**Before Merge:**
+```bash
+# Create backup branches
+git branch development-backup
+git branch main-backup
+
+# Merge with strategy
+git checkout main
+git merge development -X theirs
+```
+
+---
+
+## 🔧 Environment Variables
+
+Required in `.env.local` and Vercel:
+
+```env
+# Sanity (required)
+NEXT_PUBLIC_SANITY_PROJECT_ID=your_project_id
+NEXT_PUBLIC_SANITY_DATASET=production
+SANITY_WEBHOOK_SECRET=generate_with_openssl_rand_hex_32
+
+# Optional
+SANITY_API_TOKEN=sk_xxx  # For draft content preview
+NEXT_PUBLIC_GTM_ID=GTM-XXX  # Analytics
+```
+
+---
+
+## 📁 File Structure
+
+```
+app/
+├── [variant]/
+│   └── page.tsx              # Dynamic landing pages
+├── api/
+│   ├── revalidate/
+│   │   └── route.ts          # Webhook handler
+│   └── lead/
+│       └── route.ts          # Form submission
+└── layout.tsx
+
+components/
+├── cms/                      # CMS-powered components
+│   ├── HeroCMS.tsx
+│   ├── Benefits.tsx
+│   ├── Methodology.tsx
+│   ├── Testimonials.tsx
+│   └── FAQ.tsx
+└── ConsentBanner.tsx         # GDPR compliance
+
+lib/
+├── sanity.client.ts          # Client config (useCdn: false!)
+├── sanity.fetch.ts           # Wrapper with cache tags
+├── sanity.queries.ts         # GROQ queries + types
+└── analytics.ts              # GTM integration
+
+sanity/
+├── schemas/
+│   ├── documents/
+│   │   └── landingPage.ts    # Main schema
+│   └── modules/              # Content sections
+│       ├── hero.ts
+│       ├── benefits.ts
+│       └── ...
+└── DEPLOYMENT_GUIDE.md       # Sanity setup docs
+```
+
+---
+
+## 🚀 Deployment
+
+### Vercel Configuration
+
+**Environment Variables:**
+- Add all from `.env.example`
+- Production domain: Set in webhook URL
+
+**Build Command:** `npm run build`  
+**Output Directory:** `.next`  
+**Install Command:** `npm install`
+
+### Sanity Webhook Setup
+
+**URL:** `https://your-domain.vercel.app/api/revalidate`  
+**Filter:** `_type == "landingPage"`  
+**Projection:** `{"_type": _type, "_id": _id, "slug": slug}`  
+**Secret:** Same as `SANITY_WEBHOOK_SECRET`  
+**Method:** POST
+
+---
+
+## 🎨 Component Guidelines
+
+### CMS Components
+
+```typescript
+// components/cms/Benefits.tsx
+interface BenefitsProps {
+  data?: {
+    title?: string;
+    items?: Array<{
+      title: string;
+      description?: string;
+    }>;
+  };
+}
+
+export default function Benefits({ data }: BenefitsProps) {
+  if (!data?.items?.length) return null;
+  // Render with null checks
+}
+```
+
+**Pattern:**
+- Accept optional `data` prop
+- Return `null` if no data
+- Use optional chaining (`?.`)
+- TypeScript strict mode compliance
+
+### Analytics Integration
+
+```typescript
+// Track events
+import { trackEvent } from '@/lib/analytics';
+
+trackEvent('cta_click', {
+  location: 'hero',
+  variant: 'A',
+  text: 'Get Started'
+});
+```
+
+---
+
+## 🧪 Testing
+
+### Before Push
+
+```bash
+# Type check
+npm run build
+
+# Lint
+npm run lint
+
+# Dev test
+npm run dev
+```
+
+### After Deploy
+
+1. **Webhook Test:**
+   - Edit in Sanity Studio
+   - Click "Publish"
+   - Wait 5-10s
+   - Verify changes live
+
+2. **Check Logs:**
+   ```bash
+   vercel logs --follow
+   # Look for: [Webhook] Received validated payload
+   ```
+
+---
+
+## 📊 Performance Requirements
+
+- **LCP:** < 2.5s
+- **FID:** < 100ms
+- **CLS:** < 0.1
+- **Revalidation:** < 10s
+
+**Tools:**
+- Vercel Analytics
+- Lighthouse CI
+- GTM for tracking
+
+---
+
+## 🔮 Roadmap (Phase 2)
+
+### In Progress:
+- [ ] MCP analytics integration (GA4/Meta/Vercel)
+- [ ] Umami/Plausible (cookie-less fallback)
+- [ ] A/B testing infrastructure refinement
+
+### Planned:
+- [ ] Form optimization
+- [ ] SEO schema enhancement
+- [ ] Performance dashboard
+
+---
+
+## 🐛 Common Issues & Solutions
+
+### Issue: Revalidation not working
+**Solution:**
+1. Check `useCdn: false` in sanity.client.ts
+2. Verify webhook secret matches
+3. Check Vercel logs for errors
+4. Confirm cache tags in page.tsx
+
+### Issue: TypeScript errors on `params`
+**Solution:** Next.js 15 params are async:
+```typescript
+const { variant } = await params; // ← await!
+```
+
+### Issue: Build fails
+**Solution:**
+1. Check all env vars set
+2. Run `npm run build` locally
+3. Fix TypeScript errors
+4. Ensure no `any` types
+
+---
+
+## 💡 Best Practices
+
+### DO:
+✅ Use Server Components (default)  
+✅ Add cache tags to all fetches  
+✅ Validate webhook signatures  
+✅ Type everything strictly  
+✅ Document architecture decisions  
+✅ Test revalidation after changes  
+
+### DON'T:
+❌ Use `useCdn: true` (breaks ISR)  
+❌ Use `any` type  
+❌ Skip HMAC validation  
+❌ Use `revalidatePath()`  
+❌ Commit `.env.local`  
+❌ Force push to main  
+
+---
+
+## 📚 Documentation
+
+**Complete Guides:**
+- `README.md` - Main setup & troubleshooting
+- `IMPLEMENTATION_COMPLETE.md` - Full implementation summary
+- `QUICK_START.md` - 5-minute setup
+- `WEBHOOK_IMPLEMENTATION.md` - Technical webhook docs
+- `sanity/DEPLOYMENT_GUIDE.md` - Sanity setup
+- `sanity/schemas/SCHEMA_DOCUMENTATION.md` - Schema reference
+
+**Status:** All docs updated Nov 23, 2024
+
+---
+
+**Last Updated:** November 23, 2024  
+**Version:** 1.0.0 (Production)  
+**Build Status:** ✅ Passing
+
