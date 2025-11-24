@@ -1,13 +1,137 @@
 /**
  * Skrypt do tworzenia przykładowych dokumentów Media Asset z tagami dla V2
  * 
- * Uruchom: npx tsx scripts/create-v2-media-tags.ts
- * (lub: npm install -D tsx && npm run create-media-tags)
+ * Uruchom: npm run create-media-tags
  * 
- * Wymaga: Sanity Studio musi być uruchomiony i skonfigurowany
+ * Wymaga: 
+ * - SANITY_API_WRITE_TOKEN w .env.local (z uprawnieniami Editor)
+ * - Sanity Studio może być uruchomiony (opcjonalnie)
  */
 
+import { config } from 'dotenv'
+import { resolve } from 'node:path'
+import { readFileSync, existsSync } from 'node:fs'
 import { createClient, SanityClient } from '@sanity/client'
+
+// Załaduj zmienne z .env.local - użyj bezpośredniego podejścia
+const envPath = resolve(process.cwd(), '.env.local')
+if (existsSync(envPath)) {
+  // Spróbuj załadować przez dotenv
+  const result = config({ path: envPath, override: true })
+  
+  // Jeśli dotenv nie zadziałał, załaduj ręcznie
+  if (!process.env.SANITY_API_WRITE_TOKEN) {
+    try {
+      const envContent = readFileSync(envPath, 'utf-8')
+      const lines = envContent.split(/\r?\n/) // Obsługa Windows (\r\n) i Unix (\n)
+      let loadedCount = 0
+      
+      // DEBUG: Znajdź i pokaż wszystkie linie zawierające "SANITY_API_WRITE_TOKEN"
+      console.log('🔍 DEBUG: Szukam linii z SANITY_API_WRITE_TOKEN:')
+      lines.forEach((line, index) => {
+        if (line.includes('SANITY_API_WRITE_TOKEN')) {
+          console.log(`   Linia ${index + 1} (raw): "${line}"`)
+          console.log(`   Długość: ${line.length}, Trimmed: "${line.trim()}"`)
+          console.log(`   Index "=": ${line.indexOf('=')}`)
+        }
+      })
+      
+      for (const line of lines) {
+        const trimmed = line.trim()
+        
+        // DEBUG dla linii z SANITY_API_WRITE_TOKEN
+        if (line.includes('SANITY_API_WRITE_TOKEN')) {
+          console.log(`\n🔍 DEBUG: Przetwarzam linię z SANITY_API_WRITE_TOKEN:`)
+          console.log(`   Raw line: "${line}"`)
+          console.log(`   Trimmed: "${trimmed}"`)
+          console.log(`   Starts with #: ${trimmed.startsWith('#')}`)
+          console.log(`   Index of "=": ${trimmed.indexOf('=')}`)
+        }
+        
+        // Pomiń puste linie i komentarze
+        if (!trimmed || trimmed.startsWith('#')) {
+          if (line.includes('SANITY_API_WRITE_TOKEN')) {
+            console.log(`   ⚠️  POMINIĘTO (komentarz/pusta)`)
+          }
+          continue
+        }
+        
+        // Podziel na klucz i wartość (uwzględnij = w wartości)
+        const equalIndex = trimmed.indexOf('=')
+        if (equalIndex === -1) {
+          if (line.includes('SANITY_API_WRITE_TOKEN')) {
+            console.log(`   ⚠️  POMINIĘTO (brak znaku "=")`)
+          }
+          continue
+        }
+        
+        const key = trimmed.substring(0, equalIndex).trim()
+        const value = trimmed.substring(equalIndex + 1).trim()
+        
+        if (line.includes('SANITY_API_WRITE_TOKEN')) {
+          console.log(`   Key: "${key}"`)
+          console.log(`   Value length: ${value.length}`)
+          console.log(`   Value first 20: "${value.substring(0, 20)}"`)
+          console.log(`   Key && Value: ${!!(key && value)}`)
+        }
+        
+        if (key && value) {
+          process.env[key] = value
+          loadedCount++
+          // Debug dla SANITY_API_WRITE_TOKEN
+          if (key === 'SANITY_API_WRITE_TOKEN') {
+            console.log(`\n✅ ✅ ✅ ZNALEZIONO I ZAPISANO SANITY_API_WRITE_TOKEN!`)
+            console.log(`   Długość wartości: ${value.length}`)
+            console.log(`   Pierwsze 20 znaków: ${value.substring(0, 20)}...`)
+            console.log(`   Sprawdzam process.env: ${!!process.env.SANITY_API_WRITE_TOKEN}`)
+          }
+        } else {
+          // Debug dla linii, które nie zostały sparsowane
+          if (trimmed.includes('SANITY_API_WRITE_TOKEN')) {
+            console.log(`\n❌ Linia z SANITY_API_WRITE_TOKEN nie została sparsowana:`)
+            console.log(`   key: "${key}", value: "${value ? value.substring(0, 20) : 'BRAK'}"`)
+          }
+        }
+      }
+      
+      console.log(`📦 Załadowano ${loadedCount} zmiennych z .env.local (ręczne parsowanie)`)
+      
+      // Debug: pokaż wszystkie załadowane klucze
+      const sanityKeys = Object.keys(process.env).filter(k => k.includes('SANITY'))
+      console.log(`🔍 Znalezione klucze SANITY: ${sanityKeys.join(', ')}`)
+      
+      // Sprawdź czy token jest dostępny pod inną nazwą
+      if (!process.env.SANITY_API_WRITE_TOKEN) {
+        console.log('⚠️  SANITY_API_WRITE_TOKEN nie znaleziony w process.env')
+        console.log('🔍 Sprawdzam wszystkie klucze zawierające "WRITE":')
+        Object.keys(process.env).filter(k => k.includes('WRITE')).forEach(k => {
+          console.log(`   - ${k}`)
+        })
+      }
+    } catch (error) {
+      console.error('❌ Błąd ręcznego ładowania .env.local:', error)
+      process.exit(1)
+    }
+  }
+  
+  // Sprawdź czy token jest teraz dostępny, jeśli nie - zakończ z błędem
+  if (!process.env.SANITY_API_WRITE_TOKEN) {
+    console.error(`❌ SANITY_API_WRITE_TOKEN nie został załadowany z: ${envPath}`)
+    console.log('\n💡 Ustaw token w .env.local:')
+    console.log('   SANITY_API_WRITE_TOKEN=your-token-here')
+    console.log('\n📖 Jak zdobyć token:')
+    console.log('   1. Przejdź do https://sanity.io/manage')
+    console.log('   2. Wybierz projekt')
+    console.log('   3. API → Tokens → Add API token')
+    console.log('   4. Wybierz uprawnienia "Editor" lub "Administrator"')
+    console.log('   5. Skopiuj token do .env.local jako SANITY_API_WRITE_TOKEN')
+    console.log('\n⚠️  WAŻNE: Token musi mieć uprawnienia "Editor" lub "Administrator"')
+    process.exit(1)
+  }
+} else {
+  console.error(`❌ Plik .env.local nie istnieje w: ${envPath}`)
+  process.exit(1)
+}
 
 interface MediaAssetTemplate {
   _type: 'mediaAsset'
@@ -86,8 +210,14 @@ const mediaAssetTemplates: MediaAssetTemplate[] = [
 
 async function createMediaAssets(): Promise<void> {
   console.log('🚀 Tworzenie przykładowych Media Assets z tagami...\n')
+  
+  // Debug: sprawdź czy token jest załadowany
+  const token = process.env.SANITY_API_WRITE_TOKEN
+  if (token) {
+    console.log(`✅ Token załadowany: ${token.substring(0, 10)}...${token.substring(token.length - 10)}\n`)
+  }
 
-  if (!process.env.SANITY_API_WRITE_TOKEN) {
+  if (!token) {
     console.error('❌ Błąd: SANITY_API_WRITE_TOKEN nie jest ustawiony!')
     console.log('💡 Ustaw token w .env.local:')
     console.log('   SANITY_API_WRITE_TOKEN=your-token-here')
@@ -96,6 +226,29 @@ async function createMediaAssets(): Promise<void> {
     console.log('   2. Wybierz projekt')
     console.log('   3. API → Tokens → Add API token')
     console.log('   4. Ustaw permissions: Editor')
+    process.exit(1)
+  }
+
+  // Test połączenia przed tworzeniem dokumentów
+  console.log('🔍 Testowanie połączenia z Sanity...')
+  try {
+    const testQuery = await client.fetch('*[_type == "mediaAsset"][0...1]')
+    console.log('✅ Połączenie z Sanity działa!\n')
+  } catch (error) {
+    const errorMessage = error instanceof Error ? error.message : String(error)
+    console.error('❌ Błąd połączenia z Sanity:', errorMessage)
+    
+    if (errorMessage.includes('project user not found') || errorMessage.includes('Invalid token')) {
+      console.error('\n💡 Token jest nieprawidłowy lub wygasł!')
+      console.log('📖 Jak wygenerować nowy token:')
+      console.log('   1. Wejdź do https://sanity.io/manage')
+      console.log('   2. Wybierz projekt: nfon9ew1')
+      console.log('   3. API → Tokens')
+      console.log('   4. Usuń stary token (jeśli istnieje)')
+      console.log('   5. Add API token → Editor permissions')
+      console.log('   6. Skopiuj nowy token do .env.local jako SANITY_API_WRITE_TOKEN')
+      console.log('\n⚠️  WAŻNE: Token musi mieć uprawnienia "Editor" lub "Administrator"')
+    }
     process.exit(1)
   }
 
@@ -117,16 +270,8 @@ async function createMediaAssets(): Promise<void> {
       }
 
       // Utwórz dokument (bez obrazu - trzeba go dodać ręcznie w Studio)
-      await client.create({
-        ...template,
-        image: {
-          _type: 'image',
-          asset: {
-            _type: 'reference',
-            _ref: null, // Placeholder - trzeba dodać obraz w Studio
-          },
-        },
-      })
+      // Nie dodajemy pola image - użytkownik doda je ręcznie w Sanity Studio
+      await client.create(template)
 
       console.log(`✅ Utworzono: "${template.title}"`)
       console.log(`   Tagi: ${template.tags.join(', ')}`)

@@ -15,7 +15,7 @@ const MOCK_DATA = {
     headline: "OPANUJ SZTUKĘ AIRTOUCH. ZDEFINIUJ SWOJĄ PRZYSZŁOŚĆ.",
     subheadline: "Definitywne szkolenie dla profesjonalnych stylistów poszukujących precyzji, naturalnych efektów i znacząco wyższych przychodów z usług koloryzacji.",
     cta: "ZAPISZ SIĘ NA SZKOLENIE",
-    image: "https://images.unsplash.com/photo-1562322140-8baeececf3df?auto=format&fit=crop&w=1600&q=80" // TODO: Replace with Sanity CDN URL
+    image: "https://cdn.sanity.io/images/nfon9ew1/production/dc34f095fb2103dd236dc8a840e3a195abe7beb9-1024x1536.png?rect=0,480,1024,576&w=1600&h=900&q=85&fit=crop"
   },
   problem: {
     headline: "OGRANICZENIA TRADYCYJNEGO BALEYAGE I FOLII",
@@ -61,22 +61,26 @@ const MOCK_DATA = {
       {
         title: "Niezrównana Integralność Włosów",
         description: "50% redukcja chemicznego uszkodzenia. Klientki odchodzą ze zdrowszymi, mocniejszymi włosami - co prowadzi do wyższej retencji i poleceń.",
-        image: "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=800&q=80" // TODO: Sanity CDN - Benefit 1
+        image: "https://cdn.sanity.io/images/nfon9ew1/production/3ef278900d13bdfcf87275b39445ccc5cf8a0632-1024x565.jpg?rect=10,0,1004,565&w=1600&h=900&q=85&fit=crop",
+        alt: "do_poprawy" // TODO: Sanity CDN - Benefit 1
       },
       {
         title: "Ultra-Naturalny Odrost",
         description: "Bezszwowe mieszanie oznacza 6-12 miesięcy między wizytami vs 3-4 miesiące przy tradycyjnym baleyage. Mniej maintenance = szczęśliwsze klientki.",
-        image: "https://images.unsplash.com/photo-1522337660859-02fbefca4702?auto=format&fit=crop&w=800&q=80" // TODO: Sanity CDN - Benefit 2
+        image: "https://cdn.sanity.io/images/nfon9ew1/production/498e8fabd970b1955687ef26637e10c4c05b4743-576x1280.jpg?rect=0,478,576,324&w=1600&h=900&q=85&fit=crop",
+        alt: "do_poprawy" // TODO: Sanity CDN - Benefit 2
       },
       {
         title: "Powtarzalna Precyzja",
         description: "Systematyczny proces eliminuje nieprzewidywalność. Każda aplikacja AirTouch daje profesjonalne, spójne rezultaty - niezależnie od tekstury włosów.",
-        image: "https://images.unsplash.com/photo-1595476106812-75456150c590?auto=format&fit=crop&w=800&q=80" // TODO: Sanity CDN - Benefit 3
+        image: "https://cdn.sanity.io/images/nfon9ew1/production/0633a498599168f63971a0867943832fbe88cc30-1024x565.jpg?rect=10,0,1004,565&w=1600&h=900&q=85&fit=crop",
+        alt: "do_poprawy" // TODO: Sanity CDN - Benefit 3
       },
       {
         title: "Premium Ceny Usług",
         description: "Pobieraj 400-600 zł za sesję (vs 200-250 zł za balayage). AirTouch pozycjonuje Cię jako specjalistkę, nie generalistkę.",
-        image: "https://images.unsplash.com/photo-1580618672591-eb180b1a973f?auto=format&fit=crop&w=800&q=80" // TODO: Sanity CDN - Benefit 4
+        image: "https://cdn.sanity.io/images/nfon9ew1/production/0f0acb5ca5f03a925181936bb1626658686efa0c-1024x565.jpg?rect=10,0,1004,565&w=1600&h=900&q=85&fit=crop",
+        alt: "do_poprawy" // TODO: Sanity CDN - Benefit 4
       }
     ]
   },
@@ -87,14 +91,14 @@ const MOCK_DATA = {
       author: "Sarah Jenkins",
       role: "Senior Stylist"
     },
-    beforeImage: "https://images.unsplash.com/photo-1634449571010-02389ed0f9b0?auto=format&fit=crop&w=800&q=80", // TODO: Sanity CDN - Before
-    afterImage: "https://images.unsplash.com/photo-1562322140-8baeececf3df?auto=format&fit=crop&w=800&q=80" // TODO: Sanity CDN - After
+    beforeImage: "https://cdn.sanity.io/images/nfon9ew1/production/7af65d5f0ad3b36ef8d8c5c684342f93eee2ae11-576x1280.jpg?rect=0,478,576,324&w=1600&h=900&q=85&fit=crop", // TODO: Sanity CDN - Before
+    afterImage: "https://cdn.sanity.io/images/nfon9ew1/production/10f9b743ce25b660a02156ea0d07ee9399fb43b0-576x1280.jpg?rect=0,478,576,324&w=1600&h=900&q=85&fit=crop"
   },
   instructor: {
     headline: "INSTRUKTORKA",
     name: "Anya Petrova",
     title: "Certified AirTouch Master Educator",
-    image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=800&q=80", // TODO: Sanity CDN - Instructor
+    image: "https://cdn.sanity.io/images/nfon9ew1/production/dea80ddda5e3b18369c1f1f25485b2a1f805b218-479x1024.jpg?rect=0,378,479,269&w=1600&h=900&q=85&fit=crop", // TODO: Sanity CDN - Instructor
     bio: [
       "Certyfikowana przez VS Academy (Vladimir Sarbashev)",
       "8+ lat doświadczenia w koloryzacji",
@@ -159,9 +163,7 @@ export default function V2NotionProtoPage() {
           
           <div className="lg:w-1/2 relative h-[600px] w-full hidden lg:block">
              <div className="absolute top-0 right-0 w-[90%] h-full bg-[#111] rounded-sm overflow-hidden shadow-2xl transform rotate-3">
-                <Image 
-                  src={MOCK_DATA.hero.image} 
-                  alt="Hero" 
+                <Image src={MOCK_DATA.hero.image} alt="do poprawy" 
                   fill 
                   className="object-cover opacity-80 hover:opacity-100 transition-opacity duration-700"
                 />
@@ -256,7 +258,7 @@ export default function V2NotionProtoPage() {
                {/* Image Grid */}
                {MOCK_DATA.benefits.items.map((item, i) => (
                  <div key={i} className={`relative h-64 rounded-sm overflow-hidden ${i%2===1 ? 'mt-8' : ''}`}>
-                    <Image src={item.image} alt={item.title} fill className="object-cover hover:scale-105 transition-transform duration-700" />
+                    <Image src={item.image} alt={item.alt || item.title} fill className="object-cover hover:scale-105 transition-transform duration-700" />
                     <div className="absolute inset-0 bg-black/20 hover:bg-transparent transition-colors"></div>
                  </div>
                ))}
@@ -275,11 +277,11 @@ export default function V2NotionProtoPage() {
             <div className="md:w-1/2 relative">
               <div className="flex gap-2">
                 <div className="relative w-1/2 aspect-[3/4]">
-                  <Image src={MOCK_DATA.socialProof.beforeImage} alt="Before" fill className="object-cover" />
+                  <Image src={MOCK_DATA.socialProof.beforeImage} alt="do_poprawy" fill className="object-cover" />
                   <div className="absolute bottom-4 left-4 bg-black/70 text-white text-xs px-2 py-1">BEFORE</div>
                 </div>
                 <div className="relative w-1/2 aspect-[3/4]">
-                  <Image src={MOCK_DATA.socialProof.afterImage} alt="After" fill className="object-cover" />
+                  <Image src={MOCK_DATA.socialProof.afterImage} alt="do_poprawy" fill className="object-cover" />
                   <div className="absolute bottom-4 left-4 bg-[#D4AF37] text-black text-xs font-bold px-2 py-1">AFTER</div>
                 </div>
               </div>
@@ -327,9 +329,7 @@ export default function V2NotionProtoPage() {
              
              <div className="md:w-1/2 order-1 md:order-2 relative">
                 <div className="relative aspect-[4/5] w-full max-w-md mx-auto bg-gray-200">
-                   <Image 
-                    src={MOCK_DATA.instructor.image} 
-                    alt={MOCK_DATA.instructor.name} 
+                   <Image src={MOCK_DATA.instructor.image} alt="do_poprawy" 
                     fill 
                     className="object-cover grayscale hover:grayscale-0 transition-all duration-700"
                    />

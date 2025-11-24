@@ -9,7 +9,8 @@ import { createClient, type ClientConfig } from 'next-sanity'
  * - token: read token for draft content (optional)
  */
 
-const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || 'dummy-project-id'
+// HARDCODED FIX for local dev issues
+const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || 'nfon9ew1'
 const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET || 'production'
 const apiVersion = '2024-01-01'
 

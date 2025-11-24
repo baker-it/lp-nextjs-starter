@@ -83,3 +83,8 @@ git push
 - ✅ **Hotspot/crop** (inteligentne kadrowanie w Studio)
 - ✅ **Działa na mobile** (w przeciwieństwie do Unsplash placeholders)
 
+
+
+
+
+

@@ -72,3 +72,8 @@ Używaj tych tagów przy uploadowaniu zdjęć do Sanity Media Library dla `/play
 - **Kategorie pomagają w filtrowaniu** - łatwiej znajdziesz zdjęcia później
 - **Tagi są elastyczne** - możesz dodać własne (np. `high-priority`, `needs-review`)
 
+
+
+
+
+
