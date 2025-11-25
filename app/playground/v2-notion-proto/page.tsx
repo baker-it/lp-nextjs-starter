@@ -137,7 +137,7 @@ const theme = {
 export default function V2NotionProtoPage() {
   return (
     <div style={{ backgroundColor: theme.colors.bg, color: theme.colors.text }} className="font-sans min-h-screen selection:bg-[#D4AF37] selection:text-white">
-      
+
       {/* 1. HERO SECTION */}
       <section className="relative min-h-screen flex items-center overflow-hidden">
         <div className="container mx-auto px-4 relative z-10 flex flex-col lg:flex-row items-center gap-12">
@@ -146,29 +146,29 @@ export default function V2NotionProtoPage() {
               Master Class
             </span>
             <h1 className="text-5xl md:text-7xl font-serif font-bold leading-[1.1] mb-8 tracking-tight">
-              OPANUJ SZTUKĘ <span className="text-[#D4AF37]">AIRTOUCH</span>. <br/>
+              OPANUJ SZTUKĘ <span className="text-[#D4AF37]">AIRTOUCH</span>. <br />
               ZDEFINIUJ SWOJĄ PRZYSZŁOŚĆ.
             </h1>
             <p className="text-lg md:text-xl opacity-80 mb-10 max-w-xl leading-relaxed">
               {MOCK_DATA.hero.subheadline}
             </p>
             <button className="group bg-gradient-to-r from-[#D4AF37] to-[#B5902C] text-white font-bold py-5 px-10 rounded-none text-sm uppercase tracking-widest hover:shadow-2xl hover:shadow-[#D4AF37]/30 transition-all transform hover:-translate-y-1">
-              {MOCK_DATA.hero.cta} <ArrowRight className="inline-block ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform"/>
+              {MOCK_DATA.hero.cta} <ArrowRight className="inline-block ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </button>
           </div>
-          
+
           <div className="lg:w-1/2 relative h-[600px] w-full hidden lg:block">
-             <div className="absolute top-0 right-0 w-[90%] h-full bg-[#111] rounded-sm overflow-hidden shadow-2xl transform rotate-3">
-                <Image 
-                  src={MOCK_DATA.hero.image} 
-                  alt="Hero" 
-                  fill 
-                  className="object-cover opacity-80 hover:opacity-100 transition-opacity duration-700"
-                />
-             </div>
-             <div className="absolute bottom-10 -left-10 bg-white p-8 shadow-xl max-w-xs transform -rotate-2">
-                <p className="font-serif text-3xl italic text-[#D4AF37]">"Precision through Air"</p>
-             </div>
+            <div className="absolute top-0 right-0 w-[90%] h-full bg-[#111] rounded-sm overflow-hidden shadow-2xl transform rotate-3">
+              <Image
+                src={MOCK_DATA.hero.image}
+                alt="Hero"
+                fill
+                className="object-cover opacity-80 hover:opacity-100 transition-opacity duration-700"
+              />
+            </div>
+            <div className="absolute bottom-10 -left-10 bg-white p-8 shadow-xl max-w-xs transform -rotate-2">
+              <p className="font-serif text-3xl italic text-[#D4AF37]">&quot;Precision through Air&quot;</p>
+            </div>
           </div>
         </div>
       </section>
@@ -242,7 +242,7 @@ export default function V2NotionProtoPage() {
               <div className="space-y-4">
                 {MOCK_DATA.benefits.items.map((benefit, i) => (
                   <div key={i} className="flex items-start gap-4 p-4 border-b border-gray-100 hover:bg-gray-50 transition-colors cursor-default">
-                    <div className="mt-1 min-w-[24px] text-[#D4AF37]">0{i+1}</div>
+                    <div className="mt-1 min-w-[24px] text-[#D4AF37]">0{i + 1}</div>
                     <div>
                       <h4 className="font-bold text-lg mb-1">{benefit.title}</h4>
                       <p className="text-sm opacity-70">{benefit.description}</p>
@@ -251,15 +251,15 @@ export default function V2NotionProtoPage() {
                 ))}
               </div>
             </div>
-            
+
             <div className="md:w-2/3 grid grid-cols-2 gap-4">
-               {/* Image Grid */}
-               {MOCK_DATA.benefits.items.map((item, i) => (
-                 <div key={i} className={`relative h-64 rounded-sm overflow-hidden ${i%2===1 ? 'mt-8' : ''}`}>
-                    <Image src={item.image} alt={item.title} fill className="object-cover hover:scale-105 transition-transform duration-700" />
-                    <div className="absolute inset-0 bg-black/20 hover:bg-transparent transition-colors"></div>
-                 </div>
-               ))}
+              {/* Image Grid */}
+              {MOCK_DATA.benefits.items.map((item, i) => (
+                <div key={i} className={`relative h-64 rounded-sm overflow-hidden ${i % 2 === 1 ? 'mt-8' : ''}`}>
+                  <Image src={item.image} alt={item.title} fill className="object-cover hover:scale-105 transition-transform duration-700" />
+                  <div className="absolute inset-0 bg-black/20 hover:bg-transparent transition-colors"></div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
@@ -269,7 +269,7 @@ export default function V2NotionProtoPage() {
       <section className="py-24 bg-[#F9F7F2] border-y border-[#D4AF37]/20">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold uppercase tracking-widest mb-16">{MOCK_DATA.socialProof.headline}</h2>
-          
+
           <div className="max-w-5xl mx-auto flex flex-col md:flex-row gap-12 items-center">
             {/* Before/After */}
             <div className="md:w-1/2 relative">
@@ -304,38 +304,38 @@ export default function V2NotionProtoPage() {
       <section className="py-24 bg-white overflow-hidden">
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row items-center gap-16">
-             <div className="md:w-1/2 order-2 md:order-1">
-                <span className="text-[#D4AF37] font-bold uppercase tracking-widest mb-2 block">Ekspert</span>
-                <h2 className="text-4xl font-serif font-bold mb-2">{MOCK_DATA.instructor.name}</h2>
-                <p className="text-xl text-gray-500 mb-8 italic">{MOCK_DATA.instructor.title}</p>
-                
-                <div className="space-y-4 mb-8 border-l-2 border-[#D4AF37] pl-6">
-                  {MOCK_DATA.instructor.bio.map((item, i) => (
-                    <p key={i} className="text-gray-700">{item}</p>
-                  ))}
-                </div>
+            <div className="md:w-1/2 order-2 md:order-1">
+              <span className="text-[#D4AF37] font-bold uppercase tracking-widest mb-2 block">Ekspert</span>
+              <h2 className="text-4xl font-serif font-bold mb-2">{MOCK_DATA.instructor.name}</h2>
+              <p className="text-xl text-gray-500 mb-8 italic">{MOCK_DATA.instructor.title}</p>
 
-                <div className="grid grid-cols-1 gap-3">
-                  {MOCK_DATA.instructor.credentials.map((cred, i) => (
-                    <div key={i} className="flex items-center gap-3 font-bold text-sm bg-gray-50 p-3 rounded-sm">
-                      <Check className="w-5 h-5 text-[#D4AF37]" />
-                      {cred.replace('✓ ', '')}
-                    </div>
-                  ))}
-                </div>
-             </div>
-             
-             <div className="md:w-1/2 order-1 md:order-2 relative">
-                <div className="relative aspect-[4/5] w-full max-w-md mx-auto bg-gray-200">
-                   <Image 
-                    src={MOCK_DATA.instructor.image} 
-                    alt={MOCK_DATA.instructor.name} 
-                    fill 
-                    className="object-cover grayscale hover:grayscale-0 transition-all duration-700"
-                   />
-                   <div className="absolute -bottom-6 -right-6 w-full h-full border-2 border-[#D4AF37] -z-10"></div>
-                </div>
-             </div>
+              <div className="space-y-4 mb-8 border-l-2 border-[#D4AF37] pl-6">
+                {MOCK_DATA.instructor.bio.map((item, i) => (
+                  <p key={i} className="text-gray-700">{item}</p>
+                ))}
+              </div>
+
+              <div className="grid grid-cols-1 gap-3">
+                {MOCK_DATA.instructor.credentials.map((cred, i) => (
+                  <div key={i} className="flex items-center gap-3 font-bold text-sm bg-gray-50 p-3 rounded-sm">
+                    <Check className="w-5 h-5 text-[#D4AF37]" />
+                    {cred.replace('✓ ', '')}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="md:w-1/2 order-1 md:order-2 relative">
+              <div className="relative aspect-[4/5] w-full max-w-md mx-auto bg-gray-200">
+                <Image
+                  src={MOCK_DATA.instructor.image}
+                  alt={MOCK_DATA.instructor.name}
+                  fill
+                  className="object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                />
+                <div className="absolute -bottom-6 -right-6 w-full h-full border-2 border-[#D4AF37] -z-10"></div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -343,13 +343,13 @@ export default function V2NotionProtoPage() {
       {/* 7. PRICING / CTA */}
       <section className="py-32 bg-[#111] text-white relative overflow-hidden">
         <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10"></div>
-        
+
         <div className="container mx-auto px-4 relative z-10 text-center">
           <div className="max-w-4xl mx-auto bg-gradient-to-b from-[#1a1a1a] to-[#000] p-12 md:p-20 border border-[#333] shadow-2xl relative">
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-1 bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent"></div>
-            
+
             <h2 className="text-3xl md:text-5xl font-bold mb-8 tracking-tight">{MOCK_DATA.pricing.headline}</h2>
-            
+
             <div className="flex justify-center gap-8 md:gap-16 mb-12 font-mono text-[#D4AF37]">
               <div className="text-center">
                 <div className="text-4xl md:text-6xl font-bold">{MOCK_DATA.pricing.countdown.d}</div>
@@ -400,4 +400,3 @@ export default function V2NotionProtoPage() {
     </div>
   )
 }
-

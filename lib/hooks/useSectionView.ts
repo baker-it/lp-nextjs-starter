@@ -12,6 +12,7 @@ export function useSectionView(key: string, options: SectionViewOptions = {}) {
       entries.forEach((entry) => { if (entry.isIntersecting && (!seen || !once)) { pushEvent(eventName, { key, ...payload }); seen = true } })
     }, { threshold, rootMargin })
     io.observe(el); return () => { io.unobserve(el); io.disconnect() }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [key, options.threshold, options.rootMargin, options.once, options.eventName])
   return ref
 }

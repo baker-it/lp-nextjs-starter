@@ -17,7 +17,7 @@ export default async function DebugPage() {
   return (
     <div className="p-10 font-mono">
       <h1 className="text-2xl font-bold mb-6">Dostępne strony w Sanity:</h1>
-      
+
       {data && data.length > 0 ? (
         <ul className="space-y-4">
           {data.map((page: any) => (
@@ -30,8 +30,8 @@ export default async function DebugPage() {
         </ul>
       ) : (
         <div className="text-red-500 text-xl">
-          Brak stron typu 'landingPage' w bazie Sanity.
-          <br/>
+          Brak stron typu &apos;landingPage&apos; w bazie Sanity.
+          <br />
           <span className="text-sm text-gray-600 mt-2 block">
             Musisz wejść do Sanity Studio (http://localhost:3333 lub npx sanity dev) i utworzyć chociaż jedną stronę.
           </span>

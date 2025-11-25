@@ -186,7 +186,7 @@ export default function AirTouchLandingPage() {
                                 {[1, 2, 3, 4, 5].map(s => <Star key={s} className="inline-block w-5 h-5 text-[#D4AF37] fill-current mr-1" />)}
                             </div>
                             <blockquote className="font-serif text-3xl md:text-4xl leading-tight mb-12 text-[#111]">
-                                "{MOCK_DATA.socialProof.quote}"
+                                &quot;{MOCK_DATA.socialProof.quote}&quot;
                             </blockquote>
                             <div className="flex items-center gap-4">
                                 <div className="w-12 h-12 bg-gray-200 rounded-full overflow-hidden relative">

@@ -240,7 +240,7 @@ export default function V4AirTouchReplica() {
                             {[1, 2, 3, 4, 5].map(i => <Star key={i} className="w-5 h-5 text-[#D4AF37] fill-current" />)}
                         </div>
                         <blockquote className="font-serif text-2xl md:text-3xl italic leading-relaxed mb-8 text-[#111]">
-                            "{MOCK_DATA.socialProof.quote}"
+                            &quot;{MOCK_DATA.socialProof.quote}&quot;
                         </blockquote>
                         <div className="flex items-center justify-center gap-4">
                             <div className="w-12 h-12 bg-gray-300 rounded-full overflow-hidden">
