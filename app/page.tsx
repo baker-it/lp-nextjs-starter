@@ -1,59 +1,33 @@
-import { sanityFetch } from '@/lib/sanity.fetch'
-import { homePageQuery } from '@/lib/sanity.queries'
+import React from 'react';
+import { Inter } from 'next/font/google';
+import Hero from '@/components/Hero';
+import PainPoints from '@/components/PainPoints';
+import Methodology from '@/components/Methodology';
+import Benefits from '@/components/Benefits';
+import Testimonials from '@/components/Testimonials';
+import FAQ from '@/components/FAQ';
+import CTASection from '@/components/CTASection';
 
-// CMS Components
-import HeroCMS from '@/components/cms/HeroCMS'
-import PainPoints from '@/components/cms/PainPoints'
-import Methodology from '@/components/cms/Methodology'
-import Benefits from '@/components/cms/Benefits'
-import Testimonials from '@/components/cms/Testimonials'
-import FAQ from '@/components/cms/FAQ'
-import CTASection from '@/components/cms/CTASection'
+const inter = Inter({ subsets: ['latin'] });
 
-// Fallback Components (legacy)
-import Hero from '@/components/Hero'
-import USP from '@/components/USP'
-import SocialProof from '@/components/SocialProof'
-import Pricing from '@/components/Pricing'
-import MidCTA from '@/components/MidCTA'
-import FAQFallback from '@/components/FAQ'
-import FinalCTA from '@/components/FinalCTA'
-
-export const revalidate = false
-
-export default async function Page() {
-  // Fetch the active landing page with new schema
-  const data = await sanityFetch<any>(
-    homePageQuery,
-    {},
-    ['landing-page', 'home']
-  )
-
-  // If no data from Sanity, show fallback hardcoded content
-  if (!data) {
+export default function Page() {
     return (
-      <main>
-        <Hero />
-        <USP />
-        <SocialProof />
-        <Pricing />
-        <MidCTA />
-        <FAQFallback />
-        <FinalCTA />
-      </main>
-    )
-  }
-
-  // Render with new Sanity data and professional styling
-  return (
-    <main>
-      <HeroCMS hero={data.hero} />
-      <PainPoints data={data.painPoints} />
-      <Methodology data={data.methodology} />
-      <Benefits data={data.benefits} />
-      <Testimonials data={data.testimonials} />
-      <FAQ data={data.faqs} />
-      <CTASection data={data.ctaSection} />
-    </main>
-  )
+        <main
+            className={`min-h-screen text-[#FAFAFA] ${inter.className}`}
+            style={{
+                backgroundImage: `linear-gradient(rgba(26, 26, 26, 0.85), rgba(26, 26, 26, 0.95)), url('/bg-pattern.png')`,
+                backgroundRepeat: 'repeat',
+                backgroundSize: 'auto', // Or 'cover' depending on the pattern size, usually 'auto' or specific size for patterns
+                backgroundAttachment: 'fixed' // Optional: parallax effect
+            }}
+        >
+            <Hero />
+            <PainPoints />
+            <Methodology />
+            <Benefits />
+            <Testimonials />
+            <FAQ />
+            <CTASection />
+        </main>
+    );
 }
