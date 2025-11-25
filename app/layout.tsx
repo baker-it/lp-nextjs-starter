@@ -2,7 +2,6 @@ import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import Script from 'next/script'
-import ConsentBanner from '../components/ConsentBanner'
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 
@@ -15,7 +14,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const gtmId = process.env.NEXT_PUBLIC_GTM_ID
-  
+
   // JSON-LD Schema.org
   const organizationSchema = {
     "@context": "https://schema.org",
@@ -43,7 +42,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       "name": "Baker IT"
     }
   }
-  
+
   return (
     <html lang="pl">
       <head>
@@ -56,7 +55,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
         />
-        
+
         {/* GTM with Consent Mode v2 */}
         {gtmId && (
           <>
@@ -115,7 +114,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </noscript>
         )}
         {children}
-        <ConsentBanner />
         <Analytics />
         <SpeedInsights />
       </body>
