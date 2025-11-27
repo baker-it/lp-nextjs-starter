@@ -1,7 +1,7 @@
 import React from 'react'
 import Image from 'next/image'
 import { Playfair_Display, Inter } from 'next/font/google'
-import { Check, Star, ArrowRight, AlertTriangle, X, Clock, Shield, Award, ChevronRight } from 'lucide-react'
+import { Check, Star, ArrowRight, AlertTriangle, X, Clock, Shield, Award, ChevronRight, Banknote, ShieldCheck, Users } from 'lucide-react'
 
 // --- FONTS ---
 const playfair = Playfair_Display({ subsets: ['latin'], variable: '--font-playfair' })
@@ -10,9 +10,9 @@ const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
 // --- MOCK DATA ---
 const MOCK_DATA = {
     hero: {
-        headline: "OPANUJ SZTUKĘ AIRTOUCH. ZDEFINIUJ SWOJĄ PRZYSZŁOŚĆ.",
-        subheadline: "Definitywne szkolenie dla profesjonalnych stylistów, którzy chcą dominować na rynku, osiągać nieosiągalne wyniki i podnieść swoje stawki. Zapewnij o kompromisach. To jest Twoja droga do mistrzostwa.",
-        cta: "ZAPISZ SIĘ NA SZKOLENIE",
+        headline: "NIE SZTUKA, A INŻYNIERIA. OPANUJ SYSTEM AIRTOUCH.",
+        subheadline: "Przestań zgadywać. Opanuj system, który gwarantuje powtarzalne, luksusowe rezultaty i pozwala podnieść stawki o 50%. 2-dniowe intensywne wdrożenie.",
+        cta: "ZAREZERWUJ MIEJSCE (OGRANICZONA ILOŚĆ)",
         image: "https://images.unsplash.com/photo-1562322140-8baeececf3df?auto=format&fit=crop&w=1600&q=80"
     },
     problem: {
@@ -33,12 +33,13 @@ const MOCK_DATA = {
         ]
     },
     solution: {
-        headline: "METODOLOGIA AIRTOUCH",
+        headline: "NA CZYM POLEGA RÓŻNICA?",
+        subheadline: "Zamień intuicję na precyzyjną inżynierię koloru. Odkryj precyzyjny system, który zamienia intuicję w gwarantowaną, 100% powtarzalną inżynierię koloru — Twój nowy sekret",
         steps: [
-            { title: "KROK 1: PRECYZYJNE SEKCJONOWANIE", desc: "Oddzielanie krótszych włosów od dłuższych za pomocą strumienia powietrza dla idealnego cieniowania." },
-            { title: "KROK 2: APLIKACJA I KONTROLA ROZJAŚNIANIA", desc: "Techniki aplikacji, które minimalizują uszkodzenia i zapewniają równomierne rezultaty." },
-            { title: "KROK 3: TONOWANIE I PERSONALIZACJA KOLORU", desc: "Tworzenie unikalnych, wielowymiarowych odcieni dopasowanych do klienta." },
-            { title: "KROK 4: WYKOŃCZENIE I STYLIZACJA MISTRZOWSKA", desc: "Techniki stylizacji podkreślające efekt AirTouch i trwałość fryzury." }
+            { title: "KROK 1: Sekcjonowanie i Ekspozycja", desc: "Po podzieleniu włosów na cienkie sekcje aktywujemy technikę blow-out (cold air), aby odseparować i wydmuchnąć tzw. baby hair. To precyzyjne odizolowanie pasm zapewnia maksymalną czystość rozjaśnienia." },
+            { title: "KROK 2: Dmuchanie do Perfekcji", desc: "Użycie chłodnego powietrza pozwala na mechaniczną separację naturalnych warstw włosów. Ten kontrolowany proces selekcji eliminuje błąd ludzki i jest fundamentalny dla powtarzalnych, luksusowych rezultatów." },
+            { title: "Krok 3: Strategiczna aplikacja", desc: "Rozjaśniacz aplikowany jest wyłącznie na precyzyjnie wyselekcjonowane, dłuższe pasma. Rezultat: ~50% mniejsza ekspozycja włosów na chemię, drastycznie zmniejszając uszkodzenia." },
+            { title: "KROK 4: Bezszwowe Tonowanie", desc: "Wyrównanie koloru za pomocą strategicznego tonowania. Efekt końcowy to ultra-naturalne, sun-kissed przejście z niewidocznym odrostem utrzymującym się 6-12 miesięcy." }
         ]
     },
     socialProof: {
@@ -60,39 +61,64 @@ export default function V4AirTouchReplica() {
     return (
         <div className={`${playfair.variable} ${inter.variable} font-sans bg-[#F9F7F2] text-[#1A1A1A] min-h-screen selection:bg-[#D4AF37] selection:text-white overflow-x-hidden`}>
 
+            {/* STICKY NAVBAR */}
+            <nav className="fixed top-0 left-0 w-full z-50 bg-[#FAF9F6]/80 backdrop-blur-md border-b border-black/5 px-6 py-4">
+                <div className="container mx-auto flex items-center justify-between">
+                    <div className="relative h-12 w-40">
+                        <Image
+                            src="/logo-terst.png"
+                            alt="Terst Academy Logo"
+                            fill
+                            className="object-contain object-left brightness-0"
+                        />
+                    </div>
+                    <button className="text-xs font-bold border border-[#D4AF37] text-[#1A1A1A] px-6 py-3 rounded-full hover:bg-[#D4AF37] hover:text-white transition-colors uppercase tracking-widest">
+                        DARMOWA KONSULTACJA
+                    </button>
+                </div>
+            </nav>
+
             {/* 1. HERO SECTION */}
-            <section className="relative pt-12 pb-20 lg:pt-24 lg:pb-32 overflow-hidden">
+            <section className="relative pt-32 pb-20 lg:pt-40 lg:pb-32 overflow-hidden">
                 {/* Background Elements */}
                 <div className="absolute top-0 right-0 w-1/2 h-full bg-[#F0EBE0] -z-10 rounded-bl-[100px] hidden lg:block"></div>
 
                 <div className="container mx-auto px-6 relative z-10 flex flex-col lg:flex-row items-center gap-12">
                     <div className="lg:w-1/2">
-                        <div className="flex items-center justify-between mb-12">
-                            <div className="font-serif font-bold text-xl tracking-tight">AirTouch <span className="text-[#D4AF37]">Mastery</span></div>
-                            <button className="text-xs font-bold border border-black px-4 py-2 rounded-full hover:bg-black hover:text-white transition-colors uppercase tracking-widest">Zapisz się</button>
-                        </div>
 
                         <div className="mb-4 text-xs font-bold tracking-[0.2em] text-[#D4AF37] uppercase">Hero Section</div>
                         <h1 className="font-serif text-5xl md:text-7xl font-bold leading-[1.05] mb-8 text-[#111]">
-                            OPANUJ SZTUKĘ <br />
-                            AIRTOUCH. <br />
-                            ZDEFINIUJ SWOJĄ <br />
-                            <span className="relative inline-block">
-                                PRZYSZŁOŚĆ.
-                                <span className="absolute bottom-2 left-0 w-full h-3 bg-[#D4AF37]/20 -z-10"></span>
+                            NIE SZTUKA, <br />
+                            A <span className="bg-gradient-to-r from-[#D4AF37] to-[#B5902C] bg-clip-text text-transparent">
+                                INŻYNIERIA.
+                            </span> <br />
+                            OPANUJ <br />
+                            <span className="bg-gradient-to-r from-[#D4AF37] to-[#B5902C] bg-clip-text text-transparent">
+                                SYSTEM AIRTOUCH.
                             </span>
                         </h1>
-                        <p className="font-sans text-base md:text-lg opacity-70 mb-10 max-w-lg leading-relaxed">
+                        <p className="font-sans text-base md:text-lg text-gray-600 mb-10 max-w-lg leading-relaxed">
                             {MOCK_DATA.hero.subheadline}
                         </p>
 
-                        <div className="flex flex-col sm:flex-row gap-6 items-start sm:items-center">
+                        <div className="flex flex-col gap-8 items-start">
                             <button className="bg-gradient-to-r from-[#C5A028] to-[#E5C558] text-[#111] font-bold py-4 px-10 rounded-full shadow-lg shadow-[#D4AF37]/30 hover:shadow-xl hover:scale-105 transition-all duration-300 uppercase tracking-wide text-sm">
                                 {MOCK_DATA.hero.cta}
                             </button>
-                            <div className="flex items-center gap-2 text-xs font-medium opacity-60">
-                                <Shield className="w-4 h-4" />
-                                <span>Gwarancja dostępności.<br />Gwarancja satysfakcji.</span>
+
+                            <div className="flex flex-col gap-3">
+                                <div className="flex items-center gap-3 text-sm text-[#1A1A1A]">
+                                    <Banknote className="w-5 h-5 text-[#D4AF37]" />
+                                    <span>Wdróż usługę wycenianą na 1200 - 3000 PLN za wizytę.</span>
+                                </div>
+                                <div className="flex items-center gap-3 text-sm text-[#1A1A1A]">
+                                    <ShieldCheck className="w-5 h-5 text-[#D4AF37]" />
+                                    <span>100% Gwarancja Satysfakcji & Certyfikat Jakości TERST©.</span>
+                                </div>
+                                <div className="flex items-center gap-3 text-sm text-[#1A1A1A]">
+                                    <Users className="w-5 h-5 text-[#D4AF37]" />
+                                    <span>Metoda sprawdzona na 50+ klientkach.</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -158,40 +184,36 @@ export default function V4AirTouchReplica() {
             </section>
 
             {/* 3. SOLUTION SECTION */}
-            <section className="py-24 bg-[#0A0A0A] text-white relative overflow-hidden">
-                {/* Hexagon Pattern Overlay */}
-                <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")' }}></div>
+            <section className="py-32 bg-[#111] text-white relative overflow-hidden">
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-[#222] to-[#111]"></div>
 
                 <div className="container mx-auto px-6 relative z-10">
-                    <div className="text-center mb-20">
-                        <div className="text-xs font-bold tracking-[0.2em] text-[#D4AF37] uppercase mb-4">Solution Section</div>
-                        <h2 className="font-serif text-4xl md:text-5xl font-bold text-[#D4AF37]">METODOLOGIA AIRTOUCH</h2>
+                    <div className="flex flex-col md:flex-row justify-between items-end mb-24 border-b border-white/10 pb-12">
+                        <div>
+                            <span className="text-[#D4AF37] text-xs font-bold tracking-[0.2em] uppercase mb-4 block">Rozwiązanie</span>
+                            <h2 className="font-serif text-4xl md:text-6xl italic">
+                                {MOCK_DATA.solution.headline}
+                            </h2>
+                        </div>
+                        <p className="text-gray-400 max-w-md text-right mt-8 md:mt-0 font-light">
+                            {MOCK_DATA.solution.subheadline}
+                        </p>
                     </div>
 
-                    <div className="grid md:grid-cols-4 gap-8 relative">
-                        {/* Connecting Line (Desktop) */}
-                        <div className="hidden md:block absolute top-12 left-0 w-full h-[2px] bg-[#D4AF37]/20 -z-10"></div>
-
+                    <div className="grid md:grid-cols-4 gap-8">
                         {MOCK_DATA.solution.steps.map((step, i) => (
-                            <div key={i} className="flex flex-col items-center text-center group">
-                                <div className="w-24 h-24 rounded-full border-2 border-[#D4AF37] bg-[#111] flex items-center justify-center mb-8 group-hover:bg-[#D4AF37] group-hover:text-black transition-colors duration-500 relative z-10">
-                                    {/* Icons based on step */}
-                                    {i === 0 && <span className="text-3xl">✂️</span>}
-                                    {i === 1 && <span className="text-3xl">🖌️</span>}
-                                    {i === 2 && <span className="text-3xl">🎨</span>}
-                                    {i === 3 && <span className="text-3xl">✨</span>}
+                            <div key={i} className="group relative">
+                                <div className="text-6xl font-serif text-[#222] group-hover:text-[#D4AF37]/20 transition-colors duration-500 absolute -top-10 -left-4 -z-10 font-bold">
+                                    0{i + 1}
                                 </div>
-                                <h3 className="text-[#D4AF37] font-bold text-sm uppercase tracking-widest mb-3 h-10 flex items-center justify-center">{step.title.split(':')[0]}</h3>
-                                <div className="text-xs font-bold mb-3">{step.title.split(':')[1]}</div>
-                                <p className="text-xs text-gray-400 leading-relaxed max-w-[200px]">
-                                    {step.desc}
-                                </p>
+                                <div className="border-l border-[#D4AF37] pl-6 py-2 group-hover:border-white transition-colors duration-300">
+                                    <h3 className="text-xl font-bold mb-3 text-[#D4AF37] group-hover:text-white transition-colors">{step.title}</h3>
+                                    <p className="text-sm text-gray-400 leading-relaxed font-light">
+                                        {step.desc}
+                                    </p>
+                                </div>
                             </div>
                         ))}
-                    </div>
-
-                    <div className="text-center mt-20 text-gray-500 text-sm italic">
-                        System, który gwarantuje spójne, luksusowe rezultaty za każdym razem.
                     </div>
                 </div>
             </section>
