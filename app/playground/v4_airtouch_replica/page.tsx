@@ -1,11 +1,23 @@
+'use client'
+
 import React from 'react'
 import Image from 'next/image'
 import { Playfair_Display, Inter } from 'next/font/google'
-import { Check, Star, ArrowRight, AlertTriangle, X, Clock, Shield, Award, ChevronRight, Banknote, ShieldCheck, Users } from 'lucide-react'
+import { Check, Star, ArrowRight, AlertTriangle, X, Clock, Shield, Award, ChevronRight, Banknote, ShieldCheck, Users, Menu, Phone } from 'lucide-react'
+import HeroBackground from './HeroBackground'
+import ScrambleText from './ScrambleText'
+import { BorderBeam } from './BorderBeam'
 
 // --- FONTS ---
 const playfair = Playfair_Display({ subsets: ['latin'], variable: '--font-playfair' })
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
+
+// --- CONTACT INFO ---
+const CONTACT_INFO = {
+    phone: "+48123456789",
+    displayPhone: "+48 123 456 789",
+    whatsappMessage: "Dzień dobry, chcę zapytać o szkolenie AirTouch"
+}
 
 // --- MOCK DATA ---
 const MOCK_DATA = {
@@ -58,64 +70,216 @@ const MOCK_DATA = {
 }
 
 export default function V4AirTouchReplica() {
+    const [isScrolled, setIsScrolled] = React.useState(false)
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false)
+
+    React.useEffect(() => {
+        const handleScroll = () => {
+            setIsScrolled(window.scrollY > 20)
+        }
+        window.addEventListener('scroll', handleScroll)
+        return () => window.removeEventListener('scroll', handleScroll)
+    }, [])
+
+    // Lock body scroll when menu is open
+    React.useEffect(() => {
+        if (isMobileMenuOpen) {
+            document.body.style.overflow = 'hidden'
+        } else {
+            document.body.style.overflow = 'unset'
+        }
+        return () => {
+            document.body.style.overflow = 'unset'
+        }
+    }, [isMobileMenuOpen])
+
     return (
         <div className={`${playfair.variable} ${inter.variable} font-sans bg-[#F9F7F2] text-[#1A1A1A] min-h-screen selection:bg-[#D4AF37] selection:text-white overflow-x-hidden`}>
 
             {/* STICKY NAVBAR */}
-            <nav className="fixed top-0 left-0 w-full z-50 bg-[#FAF9F6]/80 backdrop-blur-md border-b border-black/5 px-6 py-4">
-                <div className="container mx-auto flex items-center justify-between">
-                    <div className="relative h-12 w-40">
+            <nav className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${isScrolled || isMobileMenuOpen ? 'bg-[#050505]/80 backdrop-blur-md border-b border-white/10 py-4' : 'bg-transparent py-6'}`}>
+                <div className="container mx-auto px-4 md:px-6 flex items-center justify-between">
+                    {/* Logo */}
+                    <div className="relative h-14 w-48 shrink-0 z-50">
                         <Image
-                            src="/logo-terst.png"
+                            src="/logo-terst-gold.png"
                             alt="Terst Academy Logo"
                             fill
-                            className="object-contain object-left brightness-0"
+                            className="object-contain object-left"
                         />
                     </div>
-                    <button className="text-xs font-bold border border-[#D4AF37] text-[#1A1A1A] px-6 py-3 rounded-full hover:bg-[#D4AF37] hover:text-white transition-colors uppercase tracking-widest">
-                        DARMOWA KONSULTACJA
-                    </button>
+
+                    {/* Desktop Links */}
+                    <div className="hidden md:flex items-center gap-8">
+                        {["Tradycyjne ograniczenia", "Rozwiązanie", "Dlaczego AirTouch?", "Efekty", "FAQ"].map((link, i) => (
+                            <a key={i} href="#" className="text-white text-[10px] uppercase tracking-[0.15em] hover:text-[#D4AF37] transition-colors font-medium">
+                                {link}
+                            </a>
+                        ))}
+                    </div>
+
+                    {/* Right Side: CTA + Mobile Menu */}
+                    <div className="flex items-center gap-2 md:gap-4 z-50">
+                        {/* Desktop CTA */}
+                        <button className="hidden md:block text-xs font-bold border border-[#D4AF37] text-[#D4AF37] px-6 py-3 rounded-sm hover:bg-[#D4AF37] hover:text-black transition-all uppercase tracking-widest whitespace-nowrap">
+                            DARMOWA KONSULTACJA
+                        </button>
+
+                        {/* Mobile Compact CTA (Click-to-Call) */}
+                        <a
+                            href={`tel:${CONTACT_INFO.phone}`}
+                            className="md:hidden flex items-center gap-2 text-[10px] font-bold border border-[#D4AF37] text-[#D4AF37] px-3 py-1.5 rounded-sm hover:bg-[#D4AF37] hover:text-black transition-all uppercase tracking-wider whitespace-nowrap mr-1"
+                        >
+                            <Phone className="w-3 h-3" />
+                            KONSULTACJA
+                        </a>
+
+                        {/* Mobile Menu Toggle (Animated Burger) */}
+                        <button
+                            className="md:hidden w-8 h-8 flex flex-col justify-center items-center gap-1.5 p-1 group relative"
+                            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                        >
+                            <span className={`h-[2px] w-6 bg-[#D4AF37] transition-all duration-300 ease-in-out ${isMobileMenuOpen ? 'rotate-45 translate-y-2' : ''}`}></span>
+                            <span className={`h-[2px] w-6 bg-[#D4AF37] transition-all duration-300 ease-in-out ${isMobileMenuOpen ? 'opacity-0' : ''}`}></span>
+                            <span className={`h-[2px] w-6 bg-[#D4AF37] transition-all duration-300 ease-in-out ${isMobileMenuOpen ? '-rotate-45 -translate-y-2' : ''}`}></span>
+                        </button>
+                    </div>
                 </div>
             </nav>
 
+            {/* FULLSCREEN MOBILE MENU OVERLAY */}
+            <div className={`fixed inset-0 z-40 bg-[#050505]/95 backdrop-blur-xl transition-all duration-500 flex flex-col pt-32 px-6 ${isMobileMenuOpen ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 -translate-y-full pointer-events-none'}`}>
+                <div className="flex flex-col gap-8 items-center text-center">
+                    {["DLACZEGO AIRTOUCH?", "PROGRAM SZKOLENIA", "EFEKTY", "OPINIE"].map((item, i) => (
+                        <a
+                            key={i}
+                            href="#"
+                            className="font-serif text-2xl text-white hover:text-[#D4AF37] transition-colors tracking-wide"
+                            onClick={() => setIsMobileMenuOpen(false)}
+                        >
+                            {item}
+                        </a>
+                    ))}
+
+                    <div className="w-12 h-[1px] bg-white/10 my-4"></div>
+
+                    <button className="w-full bg-gradient-to-r from-[#C5A028] to-[#E5C558] text-[#111] font-bold py-4 rounded-sm shadow-lg shadow-[#D4AF37]/20 uppercase tracking-widest text-xs">
+                        ZAREZERWUJ MIEJSCE
+                    </button>
+
+                    <div className="flex flex-col items-center gap-4 mt-2">
+                        {/* Phone Link */}
+                        <a href={`tel:${CONTACT_INFO.phone}`} className="flex items-center gap-2 text-[#D4AF37] text-lg tracking-widest hover:text-white transition-colors">
+                            <Phone className="w-5 h-5" />
+                            <span>{CONTACT_INFO.displayPhone}</span>
+                        </a>
+
+                        {/* WhatsApp Link */}
+                        <a
+                            href={`https://wa.me/${CONTACT_INFO.phone.replace('+', '')}?text=${encodeURIComponent(CONTACT_INFO.whatsappMessage)}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-2 text-[#25D366] text-sm font-medium tracking-wide hover:text-white transition-colors opacity-90"
+                        >
+                            <div className="w-2 h-2 rounded-full bg-[#25D366] animate-pulse"></div>
+                            Napisz na WhatsApp
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+
+
             {/* 1. HERO SECTION */}
-            <section className="relative pt-32 pb-20 lg:pt-40 lg:pb-32 overflow-hidden">
-                {/* Background Elements */}
-                <div className="absolute top-0 right-0 w-1/2 h-full bg-[#F0EBE0] -z-10 rounded-bl-[100px] hidden lg:block"></div>
+            <section className="relative pt-52 md:pt-72 lg:pt-96 pb-20 lg:pb-32 overflow-hidden bg-[#0D0A0F] text-white">
+                {/* Interactive Background Component */}
+                <HeroBackground />
 
                 <div className="container mx-auto px-6 relative z-10 flex flex-col lg:flex-row items-center gap-12">
                     <div className="lg:w-1/2">
+                        <h1 className="font-serif font-bold mb-12 text-center md:text-left">
+                            {/* LINIA 1 */}
+                            <div className="text-white text-2xl md:text-7xl mb-6 md:mb-4">
+                                TO NIE SZTUKA.
+                            </div>
 
-                        <div className="mb-4 text-xs font-bold tracking-[0.2em] text-[#D4AF37] uppercase">Hero Section</div>
-                        <h1 className="font-serif text-5xl md:text-7xl font-bold leading-[1.05] mb-8 text-[#111]">
-                            NIE SZTUKA, <br />
-                            A <span className="bg-gradient-to-r from-[#D4AF37] to-[#B5902C] bg-clip-text text-transparent">
-                                INŻYNIERIA.
-                            </span> <br />
-                            OPANUJ <br />
-                            <span className="bg-gradient-to-r from-[#D4AF37] to-[#B5902C] bg-clip-text text-transparent">
-                                SYSTEM AIRTOUCH.
-                            </span>
+                            {/* LINIA 2 */}
+                            <div className="flex flex-wrap items-baseline justify-center md:justify-start gap-x-3 mb-6 md:mb-4">
+                                <span className="text-white text-2xl md:text-7xl">
+                                    TO
+                                </span>
+                                {/* Dodany padding py-2 chroni przed ucięciem dołu liter */}
+                                <div className="py-2">
+                                    <ScrambleText
+                                        text="INŻYNIERIA."
+                                        className="text-3xl md:text-7xl font-bold tracking-tight leading-tight text-transparent bg-clip-text bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#C5A028]"
+                                        duration={2000}
+                                        delay={200}
+                                    />
+                                </div>
+                            </div>
+
+                            {/* LINIA 3 */}
+                            <div className="flex flex-wrap items-baseline justify-center md:justify-start gap-x-3">
+                                <span className="text-white text-2xl md:text-7xl">
+                                    OPANUJ
+                                </span>
+                                <div className="py-2">
+                                    <ScrambleText
+                                        text="SYSTEM AIRTOUCH."
+                                        className="text-3xl md:text-7xl font-bold tracking-tight leading-tight text-transparent bg-clip-text bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#C5A028]"
+                                        duration={2500}
+                                        delay={800}
+                                    />
+                                </div>
+                            </div>
                         </h1>
-                        <p className="font-sans text-base md:text-lg text-gray-600 mb-10 max-w-lg leading-relaxed">
+                        <p className="font-sans text-base md:text-lg text-gray-300 mb-20 max-w-lg leading-relaxed">
                             {MOCK_DATA.hero.subheadline}
                         </p>
 
-                        <div className="flex flex-col gap-8 items-start">
-                            <button className="bg-gradient-to-r from-[#C5A028] to-[#E5C558] text-[#111] font-bold py-4 px-10 rounded-full shadow-lg shadow-[#D4AF37]/30 hover:shadow-xl hover:scale-105 transition-all duration-300 uppercase tracking-wide text-sm">
-                                {MOCK_DATA.hero.cta}
-                            </button>
+                        <div className="flex flex-col gap-16 items-start">
+                            {/* Main CTA with Holographic Border Beam Effect */}
+                            <div className="group relative rounded-sm cursor-pointer hover:scale-105 active:scale-[0.97] transition-transform duration-300">
+                                <button className="relative overflow-hidden group w-full h-full bg-gradient-to-r from-[#C5A028] to-[#E5C558] text-[#111] font-bold py-4 px-10 rounded-sm uppercase tracking-wide text-sm flex items-center gap-2">
+                                    {/* Beam 1: Lavender -> Blue */}
+                                    <BorderBeam
+                                        duration={6}
+                                        size={150}
+                                        colorFrom="#E0C3FC"
+                                        colorTo="#8EC5FC"
+                                        className="from-transparent via-[#E0C3FC] to-transparent"
+                                    />
+
+                                    {/* Beam 2: Blue -> Lavender (Delayed) */}
+                                    <BorderBeam
+                                        duration={6}
+                                        delay={3}
+                                        size={150}
+                                        colorFrom="#8EC5FC"
+                                        colorTo="#E0C3FC"
+                                        className="from-transparent via-[#8EC5FC] to-transparent"
+                                    />
+
+                                    <span className="relative z-10 flex items-center gap-2">
+                                        {MOCK_DATA.hero.cta}
+                                        <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                                    </span>
+                                    {/* Shine Effect (Internal) */}
+                                    <div className="absolute top-0 -left-[100%] w-full h-full bg-gradient-to-r from-transparent via-white/40 to-transparent skew-x-[-25deg] animate-shine"></div>
+                                </button>
+                            </div>
 
                             <div className="flex flex-col gap-3">
-                                <div className="flex items-center gap-3 text-sm text-[#1A1A1A]">
+                                <div className="flex items-center gap-3 text-sm text-gray-300">
                                     <Banknote className="w-5 h-5 text-[#D4AF37]" />
                                     <span>Wdróż usługę wycenianą na 1200 - 3000 PLN za wizytę.</span>
                                 </div>
-                                <div className="flex items-center gap-3 text-sm text-[#1A1A1A]">
+                                <div className="flex items-center gap-3 text-sm text-gray-300">
                                     <ShieldCheck className="w-5 h-5 text-[#D4AF37]" />
                                     <span>100% Gwarancja Satysfakcji & Certyfikat Jakości TERST©.</span>
                                 </div>
-                                <div className="flex items-center gap-3 text-sm text-[#1A1A1A]">
+                                <div className="flex items-center gap-3 text-sm text-gray-300">
                                     <Users className="w-5 h-5 text-[#D4AF37]" />
                                     <span>Metoda sprawdzona na 50+ klientkach.</span>
                                 </div>
@@ -124,7 +288,7 @@ export default function V4AirTouchReplica() {
                     </div>
 
                     <div className="lg:w-1/2 relative mt-12 lg:mt-0">
-                        <div className="relative z-10 rounded-t-[200px] overflow-hidden border-4 border-white shadow-2xl max-w-md mx-auto">
+                        <div className="relative z-10 rounded-t-[200px] overflow-hidden border-4 border-white/10 shadow-2xl max-w-md mx-auto">
                             <Image
                                 src={MOCK_DATA.hero.image}
                                 alt="Hero Model"
@@ -134,16 +298,16 @@ export default function V4AirTouchReplica() {
                                 priority
                             />
                             {/* Badge */}
-                            <div className="absolute top-10 right-4 w-24 h-24 bg-gradient-to-br from-[#F9F7F2] to-[#E5C558] rounded-full flex items-center justify-center shadow-xl border-2 border-white p-1 rotate-12">
-                                <div className="w-full h-full border border-[#D4AF37] rounded-full flex flex-col items-center justify-center text-center p-2">
-                                    <span className="text-[8px] font-bold uppercase tracking-widest mb-1">Master Class</span>
-                                    <Award className="w-6 h-6 text-[#111]" />
-                                    <span className="text-[8px] font-bold uppercase tracking-widest mt-1">Certified</span>
+                            <div className="absolute top-10 right-4 w-24 h-24 bg-gradient-to-br from-[#0D0A0F] to-[#1A1A1A] rounded-full flex items-center justify-center shadow-xl border-2 border-[#D4AF37] p-1 rotate-12">
+                                <div className="w-full h-full border border-[#D4AF37]/30 rounded-full flex flex-col items-center justify-center text-center p-2">
+                                    <span className="text-[8px] font-bold uppercase tracking-widest mb-1 text-gray-300">Master Class</span>
+                                    <Award className="w-6 h-6 text-[#D4AF37]" />
+                                    <span className="text-[8px] font-bold uppercase tracking-widest mt-1 text-gray-300">Certified</span>
                                 </div>
                             </div>
                         </div>
                         {/* Decorative Circle */}
-                        <div className="absolute bottom-10 -left-10 w-32 h-32 bg-[#D4AF37] rounded-full blur-3xl opacity-20 -z-10"></div>
+                        <div className="absolute bottom-10 -left-10 w-32 h-32 bg-[#D4AF37] rounded-full blur-3xl opacity-10 -z-10"></div>
                     </div>
                 </div>
             </section>
@@ -317,9 +481,26 @@ export default function V4AirTouchReplica() {
                         ))}
                     </div>
 
-                    <button className="w-full md:w-auto bg-gradient-to-r from-[#C5A028] to-[#E5C558] text-[#111] font-bold py-5 px-16 rounded-full shadow-[0_0_30px_rgba(212,175,55,0.4)] hover:shadow-[0_0_50px_rgba(212,175,55,0.6)] hover:scale-105 transition-all duration-300 uppercase tracking-widest text-sm mb-8">
-                        {MOCK_DATA.pricing.cta}
-                    </button>
+                    {/* Bottom CTA with Border Beam Effect */}
+                    <div className="group relative inline-block rounded-sm overflow-hidden cursor-pointer hover:scale-105 active:scale-[0.97] transition-transform duration-300 mb-8">
+                        {/* 1. Border Beam Component */}
+                        <BorderBeam
+                            duration={8}
+                            size={100}
+                            colorFrom="transparent"
+                            colorTo="#D4AF37"
+                            className="from-transparent via-[#D4AF37] to-transparent"
+                        />
+
+                        {/* 2. Button Content */}
+                        <button className="relative z-10 w-full md:w-auto bg-gradient-to-r from-[#C5A028] to-[#E5C558] text-[#111] font-bold py-5 px-16 rounded-sm shadow-[0_0_30px_rgba(212,175,55,0.4)] hover:shadow-[0_0_50px_rgba(212,175,55,0.6)] uppercase tracking-widest text-sm overflow-hidden">
+                            <span className="relative z-10">
+                                {MOCK_DATA.pricing.cta}
+                            </span>
+                            {/* Shine Effect (Internal) */}
+                            <div className="absolute top-0 -left-[100%] w-full h-full bg-gradient-to-r from-transparent via-white/40 to-transparent skew-x-[-25deg] animate-shine"></div>
+                        </button>
+                    </div>
 
                     <p className="text-xs text-gray-600 max-w-lg mx-auto">
                         Promocja ograniczona czasowo lub do wyczerpania miejsc. Rozpocznij swoją podróż do mistrzostwa już dziś.

@@ -14,6 +14,25 @@ const config: Config = {
       },
       boxShadow: {
         soft: "0 10px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.1)"
+      },
+      keyframes: {
+        shine: {
+          '0%': { left: '-100%' },
+          '20%': { left: '100%' },
+          '100%': { left: '100%' },
+        },
+        breathing: {
+          '0%, 100%': { transform: 'scale(1)' },
+          '50%': { transform: 'scale(1.1)' },
+        },
+        "border-beam": {
+          "100%": { "offset-distance": "100%" },
+        },
+      },
+      animation: {
+        shine: 'shine 5s infinite',
+        breathing: 'breathing 30s ease-in-out infinite',
+        "border-beam": "border-beam calc(var(--duration)*1s) infinite linear",
       }
     },
   },
