@@ -7,6 +7,9 @@ import { Check, Star, ArrowRight, AlertTriangle, X, Clock, Shield, Award, Chevro
 import HeroBackground from '@/app/playground/v4_airtouch_replica/HeroBackground'
 import ScrambleText from '@/app/playground/v4_airtouch_replica/ScrambleText'
 import { BorderBeam } from '@/app/playground/v4_airtouch_replica/BorderBeam'
+import { ProcessReveal } from '@/app/playground/v4_airtouch_replica/ProcessReveal'
+import { AuthoritySection } from '@/app/playground/v4_airtouch_replica/AuthoritySection'
+import { RoadmapSection } from '@/app/playground/v4_airtouch_replica/RoadmapSection'
 
 // --- FONTS ---
 const playfair = Playfair_Display({ subsets: ['latin'], variable: '--font-playfair' })
@@ -312,12 +315,19 @@ export default function V4AirTouchReplica() {
                 </div>
             </section>
 
+            {/* 1.5 PROCESS REVEAL (NEW) */}
+            <ProcessReveal />
+
+            {/* 1.75 AUTHORITY SECTION (NEW) */}
+            <AuthoritySection />
+
             {/* 2. PROBLEM SECTION */}
-            <section className="py-24 bg-white relative">
+            {/* 2. PROBLEM SECTION */}
+            <section className="py-24 bg-[#0f0f0f] relative">
                 <div className="container mx-auto px-6">
                     <div className="text-center mb-20">
                         <div className="text-xs font-bold tracking-[0.2em] text-[#D4AF37] uppercase mb-4">Problem Section (Agitation)</div>
-                        <h2 className="font-serif text-4xl md:text-5xl font-bold mb-4 text-[#111]">
+                        <h2 className="font-serif text-4xl md:text-5xl font-bold mb-4 text-white">
                             OGRANICZENIA <br />
                             TRADYCYJNEGO BALEYAGE
                         </h2>
@@ -327,13 +337,13 @@ export default function V4AirTouchReplica() {
                         {MOCK_DATA.problem.items.map((item, i) => (
                             <div key={i} className="relative group">
                                 {/* Card Background with Gold Border Effect */}
-                                <div className="absolute inset-0 bg-gradient-to-b from-[#D4AF37] to-[#B5902C] rounded-2xl transform translate-y-2 translate-x-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                                <div className="relative bg-[#FDFBF7] p-8 rounded-2xl border border-[#E5E0D0] shadow-lg h-full flex flex-col items-center text-center hover:-translate-y-1 transition-transform duration-300">
-                                    <div className="w-12 h-12 bg-gradient-to-br from-[#D4AF37] to-[#B5902C] rounded-full flex items-center justify-center mb-6 shadow-md text-white">
+                                <div className="absolute inset-0 bg-gradient-to-b from-[#D4AF37]/20 to-[#B5902C]/20 rounded-2xl transform translate-y-2 translate-x-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                                <div className="relative bg-white/5 backdrop-blur-sm p-8 rounded-2xl border border-white/10 shadow-lg h-full flex flex-col items-center text-center hover:-translate-y-1 transition-transform duration-300">
+                                    <div className="w-12 h-12 bg-[#D4AF37]/10 rounded-full flex items-center justify-center mb-6 shadow-md text-[#D4AF37]">
                                         <span className="font-serif font-bold text-2xl">!</span>
                                     </div>
-                                    <h3 className="font-bold text-lg mb-4 uppercase tracking-wide">{item.title}</h3>
-                                    <p className="text-sm opacity-70 leading-relaxed">
+                                    <h3 className="font-bold text-lg mb-4 uppercase tracking-wide text-white">{item.title}</h3>
+                                    <p className="text-sm text-gray-400 leading-relaxed">
                                         {item.description}
                                     </p>
                                 </div>
@@ -341,7 +351,7 @@ export default function V4AirTouchReplica() {
                         ))}
                     </div>
 
-                    <div className="text-center mt-16 text-sm font-medium opacity-60 max-w-2xl mx-auto">
+                    <div className="text-center mt-16 text-sm font-medium text-gray-500 max-w-2xl mx-auto">
                         Nie pozwól, by przestarzałe metody hamowały Twój sukces. Przełam bariery.
                     </div>
                 </div>
@@ -382,41 +392,43 @@ export default function V4AirTouchReplica() {
                 </div>
             </section>
 
+            {/* 3.5 ROADMAP SECTION (NEW) */}
+            <RoadmapSection />
+
             {/* 4. SOCIAL PROOF / TRANSFORMATION */}
-            <section className="py-24 bg-[#F9F7F2]">
+            {/* 4. SOCIAL PROOF / TRANSFORMATION */}
+            <section className="py-24 bg-[#0f0f0f]">
                 <div className="container mx-auto px-6 text-center">
                     <div className="text-xs font-bold tracking-[0.2em] text-[#D4AF37] uppercase mb-4">Social Proof / Transformation Section</div>
-                    <h2 className="font-serif text-4xl md:text-5xl font-bold mb-16 text-[#111]">PRZEMIANA</h2>
+                    <h2 className="font-serif text-4xl md:text-5xl font-bold mb-16 text-white">PRZEMIANA</h2>
 
-                    <div className="max-w-4xl mx-auto bg-white p-4 rounded-3xl shadow-2xl mb-16 relative">
+                    <div className="max-w-4xl mx-auto bg-white/5 border border-white/10 p-4 rounded-3xl shadow-2xl mb-16 relative backdrop-blur-sm">
                         {/* Before/After Visualization */}
                         <div className="relative aspect-[16/9] md:aspect-[2/1] rounded-2xl overflow-hidden flex">
                             <div className="w-1/2 relative">
                                 <Image src={MOCK_DATA.socialProof.beforeImage} alt="Before" fill className="object-cover" />
-                                <div className="absolute bottom-6 left-6 bg-black/60 text-white text-xs font-bold px-4 py-2 rounded-full backdrop-blur-sm">PRZED</div>
-                                <div className="absolute top-6 left-6 w-8 h-8 bg-red-500/20 rounded-full flex items-center justify-center backdrop-blur-md">
-                                    <X className="w-4 h-4 text-red-600" />
+                                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 to-transparent p-6 pt-12 text-left">
+                                    <span className="text-white/80 text-[10px] font-bold tracking-widest uppercase">Tradycyjna Metoda</span>
                                 </div>
                             </div>
                             <div className="w-1/2 relative">
                                 <Image src={MOCK_DATA.socialProof.afterImage} alt="After" fill className="object-cover" />
-                                <div className="absolute bottom-6 right-6 bg-[#D4AF37] text-black text-xs font-bold px-4 py-2 rounded-full shadow-lg">PO</div>
-                                <div className="absolute top-6 right-6 w-8 h-8 bg-[#D4AF37] rounded-full flex items-center justify-center shadow-lg">
-                                    <Check className="w-4 h-4 text-black" />
+                                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 to-transparent p-6 pt-12 text-right">
+                                    <span className="text-[#D4AF37] text-[10px] font-bold tracking-widest uppercase">System AirTouch</span>
                                 </div>
                             </div>
 
                             {/* Center Slider Handle Simulation */}
-                            <div className="absolute top-0 bottom-0 left-1/2 w-1 bg-white cursor-ew-resize flex items-center justify-center -translate-x-1/2">
-                                <div className="w-10 h-10 bg-gradient-to-r from-[#D4AF37] to-[#B5902C] rounded-full border-4 border-white shadow-xl flex items-center justify-center">
-                                    <div className="flex gap-1">
-                                        <ChevronRight className="w-3 h-3 text-white rotate-180" />
-                                        <ChevronRight className="w-3 h-3 text-white" />
+                            <div className="absolute top-0 bottom-0 left-1/2 w-[1px] bg-white/50 cursor-ew-resize flex items-center justify-center -translate-x-1/2">
+                                <div className="w-8 h-8 bg-[#D4AF37] rounded-full border-2 border-white shadow-xl flex items-center justify-center">
+                                    <div className="flex gap-[2px]">
+                                        <ChevronRight className="w-3 h-3 text-black rotate-180" />
+                                        <ChevronRight className="w-3 h-3 text-black" />
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 bg-[#111] text-white text-xs font-bold px-6 py-2 rounded-full uppercase tracking-widest shadow-xl">
+                        <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 bg-[#1a1a1a] border border-white/10 text-white/60 text-[10px] font-bold px-6 py-2 rounded-full uppercase tracking-widest shadow-xl">
                             Przesuń aby zobaczyć
                         </div>
                     </div>
@@ -425,17 +437,17 @@ export default function V4AirTouchReplica() {
                         <div className="flex justify-center mb-6">
                             {[1, 2, 3, 4, 5].map(i => <Star key={i} className="w-5 h-5 text-[#D4AF37] fill-current" />)}
                         </div>
-                        <blockquote className="font-serif text-2xl md:text-3xl italic leading-relaxed mb-8 text-[#111]">
+                        <blockquote className="font-serif text-2xl md:text-3xl italic leading-relaxed mb-8 text-yellow-100/80">
                             &quot;{MOCK_DATA.socialProof.quote}&quot;
                         </blockquote>
                         <div className="flex items-center justify-center gap-4">
-                            <div className="w-12 h-12 bg-gray-300 rounded-full overflow-hidden">
+                            <div className="w-12 h-12 bg-gray-800 rounded-full overflow-hidden border border-[#D4AF37]/30">
                                 {/* Avatar placeholder */}
-                                <div className="w-full h-full bg-[#D4AF37]"></div>
+                                <div className="w-full h-full bg-[#D4AF37]/20"></div>
                             </div>
                             <div className="text-left">
-                                <div className="font-bold text-sm uppercase tracking-widest">{MOCK_DATA.socialProof.author}</div>
-                                <div className="text-[#D4AF37] text-xs font-bold">{MOCK_DATA.socialProof.role}</div>
+                                <div className="font-bold text-sm uppercase tracking-widest text-white">Karolina</div>
+                                <div className="text-[#D4AF37] text-xs font-bold">Właścicielka Salonu w Krakowie</div>
                             </div>
                         </div>
                     </div>
@@ -454,7 +466,7 @@ export default function V4AirTouchReplica() {
                 <div className="container mx-auto px-6 relative z-10 text-center">
                     <div className="text-xs font-bold tracking-[0.2em] text-gray-500 uppercase mb-4">Pricing / CTA</div>
                     <h2 className="font-serif text-3xl md:text-5xl font-bold mb-12">
-                        ZABEZPIECZ SWOJE MIEJSCE — <span className="text-[#D4AF37]">2500 ZŁ</span>
+                        REZERWUJĘ UDZIAŁ W SZKOLENIU — <span className="text-[#D4AF37]">2500 ZŁ</span>
                     </h2>
 
                     <div className="flex justify-center gap-8 md:gap-16 mb-16">
