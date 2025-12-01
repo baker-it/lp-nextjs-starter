@@ -10,6 +10,9 @@ import { BorderBeam } from '@/app/playground/v4_airtouch_replica/BorderBeam'
 import { ProcessReveal } from '@/app/playground/v4_airtouch_replica/ProcessReveal'
 import { AuthoritySection } from '@/app/playground/v4_airtouch_replica/AuthoritySection'
 import { RoadmapSection } from '@/app/playground/v4_airtouch_replica/RoadmapSection'
+import { TransformationSection } from '@/app/playground/v4_airtouch_replica/TransformationSection'
+import { TestimonialsSection } from '@/app/playground/v4_airtouch_replica/TestimonialsSection'
+import { PricingCard } from '@/app/playground/v4_airtouch_replica/PricingCard'
 
 // --- FONTS ---
 const playfair = Playfair_Display({ subsets: ['latin'], variable: '--font-playfair' })
@@ -72,7 +75,7 @@ const MOCK_DATA = {
     }
 }
 
-export default function V4AirTouchReplica() {
+export default function Home() {
     const [isScrolled, setIsScrolled] = React.useState(false)
     const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false)
 
@@ -378,137 +381,23 @@ export default function V4AirTouchReplica() {
 
             {/* 4. SOCIAL PROOF / TRANSFORMATION */}
             {/* 4. SOCIAL PROOF / TRANSFORMATION */}
-            <section className="py-24 bg-[#0f0f0f]">
-                <div className="container mx-auto px-6 text-center">
-                    <div className="text-xs font-bold tracking-[0.2em] text-[#D4AF37] uppercase mb-4">Social Proof / Transformation Section</div>
-                    <h2 className="font-serif text-4xl md:text-5xl font-bold mb-16 text-white">PRZEMIANA</h2>
+            {/* 4. TRANSFORMATION SECTION (NEW) */}
+            <TransformationSection />
 
-                    <div className="max-w-4xl mx-auto bg-white/5 border border-white/10 p-4 rounded-3xl shadow-2xl mb-16 relative backdrop-blur-sm">
-                        {/* Before/After Visualization */}
-                        <div className="relative aspect-[16/9] md:aspect-[2/1] rounded-2xl overflow-hidden flex">
-                            <div className="w-1/2 relative">
-                                <Image src={MOCK_DATA.socialProof.beforeImage} alt="Before" fill className="object-cover" />
-                                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 to-transparent p-6 pt-12 text-left">
-                                    <span className="text-white/80 text-[10px] font-bold tracking-widest uppercase">Tradycyjna Metoda</span>
-                                </div>
-                            </div>
-                            <div className="w-1/2 relative">
-                                <Image src={MOCK_DATA.socialProof.afterImage} alt="After" fill className="object-cover" />
-                                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 to-transparent p-6 pt-12 text-right">
-                                    <span className="text-[#D4AF37] text-[10px] font-bold tracking-widest uppercase">System AirTouch</span>
-                                </div>
-                            </div>
-
-                            {/* Center Slider Handle Simulation */}
-                            <div className="absolute top-0 bottom-0 left-1/2 w-[1px] bg-white/50 cursor-ew-resize flex items-center justify-center -translate-x-1/2">
-                                <div className="w-8 h-8 bg-[#D4AF37] rounded-full border-2 border-white shadow-xl flex items-center justify-center">
-                                    <div className="flex gap-[2px]">
-                                        <ChevronRight className="w-3 h-3 text-black rotate-180" />
-                                        <ChevronRight className="w-3 h-3 text-black" />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 bg-[#1a1a1a] border border-white/10 text-white/60 text-[10px] font-bold px-6 py-2 rounded-full uppercase tracking-widest shadow-xl">
-                            Przesuń aby zobaczyć
-                        </div>
-                    </div>
-
-                    <div className="max-w-3xl mx-auto">
-                        <div className="flex justify-center mb-6">
-                            {[1, 2, 3, 4, 5].map(i => <Star key={i} className="w-5 h-5 text-[#D4AF37] fill-current" />)}
-                        </div>
-                        <blockquote className="font-serif text-2xl md:text-3xl italic leading-relaxed mb-8 text-yellow-100/80">
-                            &quot;{MOCK_DATA.socialProof.quote}&quot;
-                        </blockquote>
-                        <div className="flex items-center justify-center gap-4">
-                            <div className="w-12 h-12 bg-gray-800 rounded-full overflow-hidden border border-[#D4AF37]/30">
-                                {/* Avatar placeholder */}
-                                <div className="w-full h-full bg-[#D4AF37]/20"></div>
-                            </div>
-                            <div className="text-left">
-                                <div className="font-bold text-sm uppercase tracking-widest text-white">Karolina</div>
-                                <div className="text-[#D4AF37] text-xs font-bold">Właścicielka Salonu w Krakowie</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+            {/* 5. TESTIMONIALS SECTION (NEW) */}
+            <TestimonialsSection />
 
             {/* 5. PRICING / CTA */}
-            <section className="py-24 bg-[#050505] text-white relative overflow-hidden">
-                {/* Carbon Fiber Texture */}
-                <div className="absolute inset-0 opacity-20" style={{
-                    backgroundImage: 'linear-gradient(45deg, #1a1a1a 25%, transparent 25%, transparent 75%, #1a1a1a 75%, #1a1a1a), linear-gradient(45deg, #1a1a1a 25%, transparent 25%, transparent 75%, #1a1a1a 75%, #1a1a1a)',
-                    backgroundSize: '20px 20px',
-                    backgroundPosition: '0 0, 10px 10px'
-                }}></div>
 
-                <div className="container mx-auto px-6 relative z-10 text-center">
-                    <div className="text-xs font-bold tracking-[0.2em] text-gray-500 uppercase mb-4">Pricing / CTA</div>
-                    <h2 className="font-serif text-3xl md:text-5xl font-bold mb-12">
-                        REZERWUJĘ UDZIAŁ W SZKOLENIU — <span className="text-[#D4AF37]">2500 ZŁ</span>
-                    </h2>
 
-                    <div className="flex justify-center gap-8 md:gap-16 mb-16">
-                        {Object.entries(MOCK_DATA.pricing.countdown).map(([unit, val]) => (
-                            <div key={unit} className="text-center">
-                                <div className="text-6xl md:text-8xl font-bold font-mono text-[#D4AF37] leading-none mb-2">{val}</div>
-                                <div className="text-xs uppercase tracking-[0.3em] text-gray-400">{unit === 'd' ? 'DNI' : unit === 'h' ? 'GODZ' : 'MIN'}</div>
-                            </div>
-                        ))}
-                    </div>
+            {/* 6. PRICING / CTA (NEW) */}
+            <PricingCard />
 
-                    <div className="max-w-md mx-auto space-y-3 mb-12 text-left text-sm text-gray-300">
-                        {[
-                            "Dostęp do ekskluzywnej platformy szkoleniowej",
-                            "Certyfikat ukończenia AirTouch Mastery",
-                            "Wsparcie mentorskie online",
-                            "Bonusowe materiały i poradniki",
-                            "Gwarancja satysfakcji 30 dni"
-                        ].map((feat, i) => (
-                            <div key={i} className="flex items-center gap-3">
-                                <Check className="w-4 h-4 text-[#D4AF37]" />
-                                <span>{feat}</span>
-                            </div>
-                        ))}
-                    </div>
-
-                    {/* Bottom CTA with Border Beam Effect */}
-                    <div className="group relative inline-block rounded-sm overflow-hidden cursor-pointer hover:scale-105 active:scale-[0.97] transition-transform duration-300 mb-8">
-                        {/* 1. Border Beam Component */}
-                        <BorderBeam
-                            duration={8}
-                            size={100}
-                            colorFrom="transparent"
-                            colorTo="#D4AF37"
-                            className="from-transparent via-[#D4AF37] to-transparent"
-                        />
-
-                        {/* 2. Button Content */}
-                        <button className="relative z-10 w-full md:w-auto bg-gradient-to-r from-[#C5A028] to-[#E5C558] text-[#111] font-bold py-5 px-16 rounded-sm shadow-[0_0_30px_rgba(212,175,55,0.4)] hover:shadow-[0_0_50px_rgba(212,175,55,0.6)] uppercase tracking-widest text-sm overflow-hidden">
-                            <span className="relative z-10">
-                                {MOCK_DATA.pricing.cta}
-                            </span>
-                            {/* Shine Effect (Internal) */}
-                            <div className="absolute top-0 -left-[100%] w-full h-full bg-gradient-to-r from-transparent via-white/40 to-transparent skew-x-[-25deg] animate-shine"></div>
-                        </button>
-                    </div>
-
-                    <p className="text-xs text-gray-600 max-w-lg mx-auto">
-                        Promocja ograniczona czasowo lub do wyczerpania miejsc. Rozpocznij swoją podróż do mistrzostwa już dziś.
-                    </p>
-
-                    <div className="mt-20 flex justify-center gap-6 opacity-30">
-                        <div className="w-6 h-6 bg-white rounded-full"></div>
-                        <div className="w-6 h-6 bg-white rounded-full"></div>
-                        <div className="w-6 h-6 bg-white rounded-full"></div>
-                    </div>
-                    <div className="mt-4 text-[10px] text-gray-700 uppercase tracking-widest">
-                        © 2025 AirTouch Mastery. Wszystkie prawa zastrzeżone.
-                    </div>
+            <div className="py-8 text-center bg-[#050505] border-t border-white/5">
+                <div className="text-[10px] text-gray-700 uppercase tracking-widest">
+                    © 2025 AirTouch Mastery. Wszystkie prawa zastrzeżone.
                 </div>
-            </section>
+            </div>
 
         </div>
     )
