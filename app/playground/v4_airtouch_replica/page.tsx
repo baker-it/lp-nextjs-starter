@@ -8,6 +8,8 @@ import HeroBackground from './HeroBackground'
 import ScrambleText from './ScrambleText'
 import { BorderBeam } from './BorderBeam'
 import { ProcessReveal } from './ProcessReveal'
+import { AuthoritySection } from './AuthoritySection'
+import { RoadmapSection } from './RoadmapSection'
 
 // --- FONTS ---
 const playfair = Playfair_Display({ subsets: ['latin'], variable: '--font-playfair' })
@@ -316,6 +318,9 @@ export default function V4AirTouchReplica() {
             {/* 1.5 PROCESS REVEAL (NEW) */}
             <ProcessReveal />
 
+            {/* 1.75 AUTHORITY SECTION (NEW) */}
+            <AuthoritySection />
+
             {/* 2. PROBLEM SECTION */}
             {/* 2. PROBLEM SECTION */}
             <section className="py-24 bg-[#0f0f0f] relative">
@@ -386,6 +391,9 @@ export default function V4AirTouchReplica() {
                     </div>
                 </div>
             </section>
+
+            {/* 3.5 ROADMAP SECTION (NEW) */}
+            <RoadmapSection />
 
             {/* 4. SOCIAL PROOF / TRANSFORMATION */}
             {/* 4. SOCIAL PROOF / TRANSFORMATION */}
