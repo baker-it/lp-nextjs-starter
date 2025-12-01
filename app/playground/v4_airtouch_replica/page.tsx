@@ -10,6 +10,8 @@ import { BorderBeam } from './BorderBeam'
 import { ProcessReveal } from './ProcessReveal'
 import { AuthoritySection } from './AuthoritySection'
 import { RoadmapSection } from './RoadmapSection'
+import { TransformationSection } from './TransformationSection'
+import { TestimonialsSection } from './TestimonialsSection'
 
 // --- FONTS ---
 const playfair = Playfair_Display({ subsets: ['latin'], variable: '--font-playfair' })
@@ -397,62 +399,11 @@ export default function V4AirTouchReplica() {
 
             {/* 4. SOCIAL PROOF / TRANSFORMATION */}
             {/* 4. SOCIAL PROOF / TRANSFORMATION */}
-            <section className="py-24 bg-[#0f0f0f]">
-                <div className="container mx-auto px-6 text-center">
-                    <div className="text-xs font-bold tracking-[0.2em] text-[#D4AF37] uppercase mb-4">Social Proof / Transformation Section</div>
-                    <h2 className="font-serif text-4xl md:text-5xl font-bold mb-16 text-white">PRZEMIANA</h2>
+            {/* 4. TRANSFORMATION SECTION (NEW) */}
+            <TransformationSection />
 
-                    <div className="max-w-4xl mx-auto bg-white/5 border border-white/10 p-4 rounded-3xl shadow-2xl mb-16 relative backdrop-blur-sm">
-                        {/* Before/After Visualization */}
-                        <div className="relative aspect-[16/9] md:aspect-[2/1] rounded-2xl overflow-hidden flex">
-                            <div className="w-1/2 relative">
-                                <Image src={MOCK_DATA.socialProof.beforeImage} alt="Before" fill className="object-cover" />
-                                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 to-transparent p-6 pt-12 text-left">
-                                    <span className="text-white/80 text-[10px] font-bold tracking-widest uppercase">Tradycyjna Metoda</span>
-                                </div>
-                            </div>
-                            <div className="w-1/2 relative">
-                                <Image src={MOCK_DATA.socialProof.afterImage} alt="After" fill className="object-cover" />
-                                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 to-transparent p-6 pt-12 text-right">
-                                    <span className="text-[#D4AF37] text-[10px] font-bold tracking-widest uppercase">System AirTouch</span>
-                                </div>
-                            </div>
-
-                            {/* Center Slider Handle Simulation */}
-                            <div className="absolute top-0 bottom-0 left-1/2 w-[1px] bg-white/50 cursor-ew-resize flex items-center justify-center -translate-x-1/2">
-                                <div className="w-8 h-8 bg-[#D4AF37] rounded-full border-2 border-white shadow-xl flex items-center justify-center">
-                                    <div className="flex gap-[2px]">
-                                        <ChevronRight className="w-3 h-3 text-black rotate-180" />
-                                        <ChevronRight className="w-3 h-3 text-black" />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 bg-[#1a1a1a] border border-white/10 text-white/60 text-[10px] font-bold px-6 py-2 rounded-full uppercase tracking-widest shadow-xl">
-                            Przesuń aby zobaczyć
-                        </div>
-                    </div>
-
-                    <div className="max-w-3xl mx-auto">
-                        <div className="flex justify-center mb-6">
-                            {[1, 2, 3, 4, 5].map(i => <Star key={i} className="w-5 h-5 text-[#D4AF37] fill-current" />)}
-                        </div>
-                        <blockquote className="font-serif text-2xl md:text-3xl italic leading-relaxed mb-8 text-yellow-100/80">
-                            &quot;{MOCK_DATA.socialProof.quote}&quot;
-                        </blockquote>
-                        <div className="flex items-center justify-center gap-4">
-                            <div className="w-12 h-12 bg-gray-800 rounded-full overflow-hidden border border-[#D4AF37]/30">
-                                {/* Avatar placeholder */}
-                                <div className="w-full h-full bg-[#D4AF37]/20"></div>
-                            </div>
-                            <div className="text-left">
-                                <div className="font-bold text-sm uppercase tracking-widest text-white">Karolina</div>
-                                <div className="text-[#D4AF37] text-xs font-bold">Właścicielka Salonu w Krakowie</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+            {/* 5. TESTIMONIALS SECTION (NEW) */}
+            <TestimonialsSection />
 
             {/* 5. PRICING / CTA */}
             <section className="py-24 bg-[#050505] text-white relative overflow-hidden">
