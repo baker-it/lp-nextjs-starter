@@ -12,6 +12,7 @@ import { AuthoritySection } from './AuthoritySection'
 import { RoadmapSection } from './RoadmapSection'
 import { TransformationSection } from './TransformationSection'
 import { TestimonialsSection } from './TestimonialsSection'
+import { PricingCard } from './PricingCard'
 
 // --- FONTS ---
 const playfair = Playfair_Display({ subsets: ['latin'], variable: '--font-playfair' })
@@ -406,79 +407,16 @@ export default function V4AirTouchReplica() {
             <TestimonialsSection />
 
             {/* 5. PRICING / CTA */}
-            <section className="py-24 bg-[#050505] text-white relative overflow-hidden">
-                {/* Carbon Fiber Texture */}
-                <div className="absolute inset-0 opacity-20" style={{
-                    backgroundImage: 'linear-gradient(45deg, #1a1a1a 25%, transparent 25%, transparent 75%, #1a1a1a 75%, #1a1a1a), linear-gradient(45deg, #1a1a1a 25%, transparent 25%, transparent 75%, #1a1a1a 75%, #1a1a1a)',
-                    backgroundSize: '20px 20px',
-                    backgroundPosition: '0 0, 10px 10px'
-                }}></div>
 
-                <div className="container mx-auto px-6 relative z-10 text-center">
-                    <div className="text-xs font-bold tracking-[0.2em] text-gray-500 uppercase mb-4">Pricing / CTA</div>
-                    <h2 className="font-serif text-3xl md:text-5xl font-bold mb-12">
-                        REZERWUJĘ UDZIAŁ W SZKOLENIU — <span className="text-[#D4AF37]">2500 ZŁ</span>
-                    </h2>
 
-                    <div className="flex justify-center gap-8 md:gap-16 mb-16">
-                        {Object.entries(MOCK_DATA.pricing.countdown).map(([unit, val]) => (
-                            <div key={unit} className="text-center">
-                                <div className="text-6xl md:text-8xl font-bold font-mono text-[#D4AF37] leading-none mb-2">{val}</div>
-                                <div className="text-xs uppercase tracking-[0.3em] text-gray-400">{unit === 'd' ? 'DNI' : unit === 'h' ? 'GODZ' : 'MIN'}</div>
-                            </div>
-                        ))}
-                    </div>
+            {/* 6. PRICING / CTA (NEW) */}
+            <PricingCard />
 
-                    <div className="max-w-md mx-auto space-y-3 mb-12 text-left text-sm text-gray-300">
-                        {[
-                            "Dostęp do ekskluzywnej platformy szkoleniowej",
-                            "Certyfikat ukończenia AirTouch Mastery",
-                            "Wsparcie mentorskie online",
-                            "Bonusowe materiały i poradniki",
-                            "Gwarancja satysfakcji 30 dni"
-                        ].map((feat, i) => (
-                            <div key={i} className="flex items-center gap-3">
-                                <Check className="w-4 h-4 text-[#D4AF37]" />
-                                <span>{feat}</span>
-                            </div>
-                        ))}
-                    </div>
-
-                    {/* Bottom CTA with Border Beam Effect */}
-                    <div className="group relative inline-block rounded-sm overflow-hidden cursor-pointer hover:scale-105 active:scale-[0.97] transition-transform duration-300 mb-8">
-                        {/* 1. Border Beam Component */}
-                        <BorderBeam
-                            duration={8}
-                            size={100}
-                            colorFrom="transparent"
-                            colorTo="#D4AF37"
-                            className="from-transparent via-[#D4AF37] to-transparent"
-                        />
-
-                        {/* 2. Button Content */}
-                        <button className="relative z-10 w-full md:w-auto bg-gradient-to-r from-[#C5A028] to-[#E5C558] text-[#111] font-bold py-5 px-16 rounded-sm shadow-[0_0_30px_rgba(212,175,55,0.4)] hover:shadow-[0_0_50px_rgba(212,175,55,0.6)] uppercase tracking-widest text-sm overflow-hidden">
-                            <span className="relative z-10">
-                                {MOCK_DATA.pricing.cta}
-                            </span>
-                            {/* Shine Effect (Internal) */}
-                            <div className="absolute top-0 -left-[100%] w-full h-full bg-gradient-to-r from-transparent via-white/40 to-transparent skew-x-[-25deg] animate-shine"></div>
-                        </button>
-                    </div>
-
-                    <p className="text-xs text-gray-600 max-w-lg mx-auto">
-                        Promocja ograniczona czasowo lub do wyczerpania miejsc. Rozpocznij swoją podróż do mistrzostwa już dziś.
-                    </p>
-
-                    <div className="mt-20 flex justify-center gap-6 opacity-30">
-                        <div className="w-6 h-6 bg-white rounded-full"></div>
-                        <div className="w-6 h-6 bg-white rounded-full"></div>
-                        <div className="w-6 h-6 bg-white rounded-full"></div>
-                    </div>
-                    <div className="mt-4 text-[10px] text-gray-700 uppercase tracking-widest">
-                        © 2025 AirTouch Mastery. Wszystkie prawa zastrzeżone.
-                    </div>
+            <div className="py-8 text-center bg-[#050505] border-t border-white/5">
+                <div className="text-[10px] text-gray-700 uppercase tracking-widest">
+                    © 2025 AirTouch Mastery. Wszystkie prawa zastrzeżone.
                 </div>
-            </section>
+            </div>
 
         </div>
     )
