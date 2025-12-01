@@ -28,7 +28,7 @@ const MOCK_DATA = {
         headline: "NIE SZTUKA, A INŻYNIERIA. OPANUJ SYSTEM AIRTOUCH.",
         subheadline: "Przestań zgadywać. Opanuj system, który gwarantuje powtarzalne, luksusowe rezultaty i pozwala podnieść stawki o 50%. 2-dniowe intensywne wdrożenie.",
         cta: "ZAREZERWUJ MIEJSCE (OGRANICZONA ILOŚĆ)",
-        image: "https://images.unsplash.com/photo-1562322140-8baeececf3df?auto=format&fit=crop&w=1600&q=80"
+        image: "/instruktorka.jpg"
     },
     problem: {
         headline: "OGRANICZENIA TRADYCYJNEGO BALEYAGE",
@@ -290,27 +290,8 @@ export default function V4AirTouchReplica() {
                         </div>
                     </div>
 
-                    <div className="lg:w-1/2 relative mt-12 lg:mt-0">
-                        <div className="relative z-10 rounded-t-[200px] overflow-hidden border-4 border-white/10 shadow-2xl max-w-md mx-auto">
-                            <Image
-                                src={MOCK_DATA.hero.image}
-                                alt="Hero Model"
-                                width={600}
-                                height={800}
-                                className="object-cover w-full h-auto"
-                                priority
-                            />
-                            {/* Badge */}
-                            <div className="absolute top-10 right-4 w-24 h-24 bg-gradient-to-br from-[#0D0A0F] to-[#1A1A1A] rounded-full flex items-center justify-center shadow-xl border-2 border-[#D4AF37] p-1 rotate-12">
-                                <div className="w-full h-full border border-[#D4AF37]/30 rounded-full flex flex-col items-center justify-center text-center p-2">
-                                    <span className="text-[8px] font-bold uppercase tracking-widest mb-1 text-gray-300">Master Class</span>
-                                    <Award className="w-6 h-6 text-[#D4AF37]" />
-                                    <span className="text-[8px] font-bold uppercase tracking-widest mt-1 text-gray-300">Certified</span>
-                                </div>
-                            </div>
-                        </div>
-                        {/* Decorative Circle */}
-                        <div className="absolute bottom-10 -left-10 w-32 h-32 bg-[#D4AF37] rounded-full blur-3xl opacity-10 -z-10"></div>
+                    <div className="lg:w-1/2 relative mt-12 lg:mt-0 hidden lg:block">
+                        {/* Image removed as per request */}
                     </div>
                 </div>
             </section>

@@ -37,7 +37,7 @@ export const CertificateDisplay = () => {
                 {/* Badge Label */}
                 <div className="absolute bottom-2 left-1/2 -translate-x-1/2 w-max max-w-[90%] bg-black/80 backdrop-blur-sm border border-[#D4AF37]/30 px-2 py-1 rounded flex flex-col items-center text-center">
                     <span className="text-[8px] md:text-[10px] text-[#D4AF37] font-bold uppercase tracking-widest leading-none">
-                        Living Proof
+                        CERTYFIKACJA LEVEL 3
                     </span>
                 </div>
             </div>
