@@ -74,7 +74,7 @@ export const ProcessReveal = () => {
                     </div>
 
                     <p className="text-gray-400 leading-relaxed text-lg">
-                        Większość szkoleń uczy Cię "jak nakładać farbę". System AirTouch uczy Cię
+                        Większość szkoleń uczy Cię &quot;jak nakładać farbę&quot;. System AirTouch uczy Cię
                         <strong className="text-white"> architektury włosa</strong>.
                         Opanuj schemat, który eliminuje zgadywanie i gwarantuje powtarzalny, luksusowy efekt.
                         To zdjęcie obok? To nie bałagan. To idealnie zaprojektowana separacja, która podnosi Twoje stawki o 50%.
