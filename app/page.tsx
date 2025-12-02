@@ -4,16 +4,16 @@ import React from 'react'
 import Image from 'next/image'
 import { Playfair_Display, Inter } from 'next/font/google'
 import { Check, Star, ArrowRight, AlertTriangle, X, Clock, Shield, Award, ChevronRight, Banknote, ShieldCheck, Users, Menu, Phone } from 'lucide-react'
-import HeroBackground from '@/app/playground/v4_airtouch_replica/HeroBackground'
-import ScrambleText from '@/app/playground/v4_airtouch_replica/ScrambleText'
-import { BorderBeam } from '@/app/playground/v4_airtouch_replica/BorderBeam'
-import { ProcessReveal } from '@/app/playground/v4_airtouch_replica/ProcessReveal'
-import { AuthoritySection } from '@/app/playground/v4_airtouch_replica/AuthoritySection'
-import { RoadmapSection } from '@/app/playground/v4_airtouch_replica/RoadmapSection'
-import { TransformationSection } from '@/app/playground/v4_airtouch_replica/TransformationSection'
-import { TestimonialsSection } from '@/app/playground/v4_airtouch_replica/TestimonialsSection'
-import { PricingCard } from '@/app/playground/v4_airtouch_replica/PricingCard'
-import { AirflowMesh } from '@/app/playground/v4_airtouch_replica/AirflowMesh'
+import HeroBackground from './playground/v4_airtouch_replica/HeroBackground'
+import ScrambleText from './playground/v4_airtouch_replica/ScrambleText'
+import { BorderBeam } from './playground/v4_airtouch_replica/BorderBeam'
+import { ProcessReveal } from './playground/v4_airtouch_replica/ProcessReveal'
+import { AuthoritySection } from './playground/v4_airtouch_replica/AuthoritySection'
+import { RoadmapSection } from './playground/v4_airtouch_replica/RoadmapSection'
+import { TransformationSection } from './playground/v4_airtouch_replica/TransformationSection'
+import { TestimonialsSection } from './playground/v4_airtouch_replica/TestimonialsSection'
+import { PricingCard } from './playground/v4_airtouch_replica/PricingCard'
+import { AirflowMesh } from './playground/v4_airtouch_replica/AirflowMesh'
 
 // --- FONTS ---
 const playfair = Playfair_Display({ subsets: ['latin'], variable: '--font-playfair' })
@@ -76,7 +76,7 @@ const MOCK_DATA = {
     }
 }
 
-export default function Home() {
+export default function V4AirTouchReplica() {
     const [isScrolled, setIsScrolled] = React.useState(false)
     const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false)
 
@@ -300,8 +300,27 @@ export default function Home() {
                         </div>
                     </div>
 
-                    <div className="lg:w-1/2 relative mt-12 lg:mt-0 hidden lg:block">
-                        {/* Image removed as per request */}
+                    <div className="lg:w-1/2 relative mt-12 lg:mt-0">
+                        <div className="relative z-10 rounded-t-[200px] overflow-hidden border-4 border-white/10 shadow-2xl max-w-md mx-auto">
+                            <Image
+                                src={MOCK_DATA.hero.image}
+                                alt="Hero Model"
+                                width={600}
+                                height={800}
+                                className="object-cover w-full h-auto"
+                                priority
+                            />
+                            {/* Badge */}
+                            <div className="absolute top-10 right-4 w-24 h-24 bg-gradient-to-br from-[#0D0A0F] to-[#1A1A1A] rounded-full flex items-center justify-center shadow-xl border-2 border-[#D4AF37] p-1 rotate-12">
+                                <div className="w-full h-full border border-[#D4AF37]/30 rounded-full flex flex-col items-center justify-center text-center p-2">
+                                    <span className="text-[8px] font-bold uppercase tracking-widest mb-1 text-gray-300">Master Class</span>
+                                    <Award className="w-6 h-6 text-[#D4AF37]" />
+                                    <span className="text-[8px] font-bold uppercase tracking-widest mt-1 text-gray-300">Certified</span>
+                                </div>
+                            </div>
+                        </div>
+                        {/* Decorative Circle */}
+                        <div className="absolute bottom-10 -left-10 w-32 h-32 bg-[#D4AF37] rounded-full blur-3xl opacity-10 -z-10"></div>
                     </div>
                 </div>
             </section>
