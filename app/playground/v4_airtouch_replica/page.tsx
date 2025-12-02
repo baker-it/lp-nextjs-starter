@@ -13,6 +13,7 @@ import { RoadmapSection } from './RoadmapSection'
 import { TransformationSection } from './TransformationSection'
 import { TestimonialsSection } from './TestimonialsSection'
 import { PricingCard } from './PricingCard'
+import { AirflowMesh } from './AirflowMesh'
 
 // --- FONTS ---
 const playfair = Playfair_Display({ subsets: ['latin'], variable: '--font-playfair' })
@@ -201,6 +202,12 @@ export default function V4AirTouchReplica() {
                 {/* Interactive Background Component */}
                 <HeroBackground />
 
+                {/* Engineering Wave - Top Right */}
+                <AirflowMesh
+                    className="right-[-20%] top-[-10%] w-[800px] h-[800px] mix-blend-screen animate-[spin_60s_linear_infinite]"
+                    opacity={0.2}
+                />
+
                 <div className="container mx-auto px-6 relative z-10 flex flex-col lg:flex-row items-center gap-12">
                     <div className="lg:w-1/2">
                         <h1 className="font-serif font-bold mb-12 text-center md:text-left">
@@ -363,6 +370,12 @@ export default function V4AirTouchReplica() {
             {/* 3. SOLUTION SECTION */}
             <section className="py-32 bg-[#111] text-white relative overflow-hidden">
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-[#222] to-[#111]"></div>
+
+                {/* Engineering Wave - Bottom Left */}
+                <AirflowMesh
+                    className="left-[-20%] bottom-0 w-[800px] h-[800px]"
+                    opacity={0.1}
+                />
 
                 <div className="container mx-auto px-6 relative z-10">
                     <div className="flex flex-col md:flex-row justify-between items-end mb-24 border-b border-white/10 pb-12">
