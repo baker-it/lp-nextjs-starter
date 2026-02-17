@@ -1,11 +1,56 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { useState, useRef, useEffect } from 'react';
 
 // Zakładamy, że importujesz to zdjęcie procesu jako local asset
 // np. import processImage from '@/assets/images/process-foil.jpg';
 
 export const ProcessReveal = () => {
+    const [progress, setProgress] = useState(0);
+    const videoRef = useRef<HTMLVideoElement>(null);
+
+    useEffect(() => {
+        let animationFrameId: number;
+
+        const updateProgress = () => {
+            if (videoRef.current) {
+                const current = videoRef.current.currentTime;
+                const duration = videoRef.current.duration;
+                if (duration > 0) {
+                    setProgress((current / duration) * 100);
+                }
+            }
+            animationFrameId = requestAnimationFrame(updateProgress);
+        };
+
+        const handlePlay = () => {
+            animationFrameId = requestAnimationFrame(updateProgress);
+        };
+
+        const handlePause = () => {
+            cancelAnimationFrame(animationFrameId);
+        };
+
+        const videoElement = videoRef.current;
+        if (videoElement) {
+            videoElement.addEventListener('play', handlePlay);
+            videoElement.addEventListener('pause', handlePause);
+            // If already playing when effect runs
+            if (!videoElement.paused) {
+                handlePlay();
+            }
+        }
+
+        return () => {
+            if (videoElement) {
+                videoElement.removeEventListener('play', handlePlay);
+                videoElement.removeEventListener('pause', handlePause);
+            }
+            cancelAnimationFrame(animationFrameId);
+        };
+    }, []);
+
     return (
         <section className="relative w-full py-24 bg-[#0a0a0a] overflow-hidden">
             <div className="container mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -20,6 +65,7 @@ export const ProcessReveal = () => {
                         {/* Wideo procesu */}
                         <div className="absolute inset-0 bg-gray-800">
                             <video
+                                ref={videoRef}
                                 src="/process-video.mp4"
                                 autoPlay
                                 loop
@@ -41,18 +87,16 @@ export const ProcessReveal = () => {
                         />
 
                         <div className="absolute bottom-6 left-6 right-6">
-                            <p className="text-white/60 text-xs font-mono mb-1">PRECISION INDEX</p>
+                            {/* REMOVED: PRECISION INDEX text */}
                             <div className="w-full h-1 bg-white/10 rounded-full overflow-hidden">
                                 <motion.div
-                                    initial={{ width: 0 }}
-                                    whileInView={{ width: "94%" }}
-                                    transition={{ duration: 1.5 }}
+                                    style={{ width: `${progress}%` }}
                                     className="h-full bg-yellow-500"
                                 />
                             </div>
                             <div className="flex justify-between mt-2 text-white font-serif italic text-lg">
                                 <span>Separacja pasm</span>
-                                <span className="text-yellow-500">100%</span>
+                                <span className="text-yellow-500">{Math.round(progress)}%</span>
                             </div>
                         </div>
                     </div>
