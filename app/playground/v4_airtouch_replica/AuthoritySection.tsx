@@ -19,10 +19,10 @@ export const AuthoritySection = () => {
                         <div className="space-y-4">
                             <h2 className="font-serif text-3xl md:text-5xl text-[#D4AF37] tracking-wide leading-tight">
                                 Wiedza prosto od Twórcy. <br />
-                                <span className="text-white">Zero "głuchego telefonu".</span>
+                                <span className="text-white">Zero &quot;głuchego telefonu&quot;.</span>
                             </h2>
                             <p className="text-gray-400 text-lg leading-relaxed max-w-xl">
-                                Nie uczę techniki z YouTube'a ani od pośredników. Jako jedna z nielicznych w Polsce posiadam Level 3 zdobyty bezpośrednio u rąk <span className="text-white font-bold">Vladimira Sarbasheva</span>. Przekazuję Ci czysty, niezniekształcony system.
+                                Nie uczę techniki z YouTube&apos;a ani od pośredników. Jako jedna z nielicznych w Polsce posiadam Level 3 zdobyty bezpośrednio u rąk <span className="text-white font-bold">Vladimira Sarbasheva</span>. Przekazuję Ci czysty, niezniekształcony system.
                             </p>
                         </div>
                     </div>
