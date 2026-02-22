@@ -6,11 +6,11 @@ import Image from 'next/image'
 export default function HeroBackground() {
     return (
         <div className="absolute inset-0 overflow-hidden pointer-events-none select-none bg-[#050505]">
-            {/* LAYER 1: Texture (Bottom) - Tiled Option combined with Gradients */}
+            {/* LAYER 1: Texture (Bottom) - Option 3 (Blur + Noise) */}
             <div className="absolute inset-0 z-0 animate-breathing flex flex-col justify-center items-center" style={{ height: 'min(150vh, 1200px)' }}>
-                {/* Tło kafelkowe ustalone na całą szerokość i wysokość kontenera */}
+                {/* Tło kafelkowe z mocnym blurem by zabić ostre "szwy" obrazków */}
                 <div
-                    className="absolute inset-0 opacity-[0.25]"
+                    className="absolute inset-0 opacity-[0.4] blur-[8px]"
                     style={{
                         backgroundImage: "url('/sss.jpg')",
                         backgroundRepeat: "repeat",
@@ -74,6 +74,16 @@ export default function HeroBackground() {
                         <circle cx="50" cy="50" r="15" fill="none" stroke="#D4AF37" strokeWidth="0.15" opacity="0.2" />
                     </svg>
                 </div>
+            </div>
+
+            {/* LAYER 4: Global Noise Overlay for premium sharpness */}
+            <div className="absolute inset-0 z-[50] opacity-[0.15] mix-blend-screen pointer-events-none">
+                <svg className="w-full h-full">
+                    <filter id="noiseFilter">
+                        <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch" />
+                    </filter>
+                    <rect width="100%" height="100%" filter="url(#noiseFilter)" />
+                </svg>
             </div>
 
             {/* Global Styles for custom animations if needed */}
