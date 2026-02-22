@@ -78,17 +78,17 @@ export default function HeroBackground() {
 
             {/* LAYER 4: Global Noise Overlay for premium sharpness */}
             <div className="absolute inset-0 z-[50] mix-blend-screen pointer-events-none animate-breathing">
-                <svg viewBox="0 0 700 700" className="w-full h-full" preserveAspectRatio="none" style={{ opacity: 0.70 }}>
+                <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlnsXlink="http://www.w3.org/1999/xlink" viewBox="0 0 700 700" width="700" height="700" preserveAspectRatio="none" className="w-full h-full" style={{ opacity: 0.92 }}>
                     <defs>
                         <filter id="nnnoise-filter" x="-20%" y="-20%" width="140%" height="140%" filterUnits="objectBoundingBox" primitiveUnits="userSpaceOnUse" colorInterpolationFilters="linearRGB">
-                            <feTurbulence type="turbulence" baseFrequency="0.149" numOctaves="4" seed="15" stitchTiles="stitch" x="0%" y="0%" width="100%" height="100%" result="turbulence" />
-                            <feSpecularLighting surfaceScale="40" specularConstant="3" specularExponent="20" lightingColor="#a79b0f" x="0%" y="0%" width="100%" height="100%" in="turbulence" result="specularLighting">
-                                <feDistantLight azimuth="3" elevation="96" />
+                            <feTurbulence type="turbulence" baseFrequency="0.146" numOctaves="4" seed="15" stitchTiles="stitch" x="0%" y="0%" width="100%" height="100%" result="turbulence"></feTurbulence>
+                            <feSpecularLighting surfaceScale="34" specularConstant="3" specularExponent="20" lightingColor="#a79b0f" x="0%" y="0%" width="100%" height="100%" in="turbulence" result="specularLighting">
+                                <feDistantLight azimuth="3" elevation="146"></feDistantLight>
                             </feSpecularLighting>
                         </filter>
                     </defs>
-                    <rect width="100%" height="100%" fill="#0e001aff" />
-                    <rect width="100%" height="100%" fill="#a79b0f" filter="url(#nnnoise-filter)" />
+                    <rect width="700" height="700" fill="#0e001aff"></rect>
+                    <rect width="700" height="700" fill="#a79b0f" filter="url(#nnnoise-filter)"></rect>
                 </svg>
             </div>
 
