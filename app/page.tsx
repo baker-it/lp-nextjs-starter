@@ -339,8 +339,8 @@ export default function V4AirTouchReplica() {
             </section>
 
             {/* 3. SOLUTION SECTION */}
-            <section className="py-32 bg-[#111] text-white relative overflow-hidden">
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-[#222] to-[#111]"></div>
+            <section className="py-32 bg-[#161616] text-white relative overflow-hidden">
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-[#252525] to-[#161616]"></div>
 
                 {/* Engineering Wave - Bottom Left */}
                 <AirflowMesh
@@ -396,7 +396,7 @@ export default function V4AirTouchReplica() {
             {/* 6. PRICING / CTA (NEW) */}
             <PricingCard />
 
-            <div className="py-8 text-center bg-[#050505] border-t border-white/5">
+            <div className="py-8 text-center bg-[#0f0f0f] border-t border-white/5">
                 <div className="text-[10px] text-gray-700 uppercase tracking-widest">
                     © 2025 AirTouch Mastery. Wszystkie prawa zastrzeżone.
                 </div>

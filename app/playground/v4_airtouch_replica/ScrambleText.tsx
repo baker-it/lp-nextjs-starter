@@ -10,7 +10,7 @@ interface ScrambleTextProps {
     delay?: number
 }
 
-const CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+-=[]{}|;:,.<>?"
+const CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+-/\\"
 
 const getDeterministicScramble = (text: string) => {
     return text.split('').map((char, i) => {
@@ -32,6 +32,8 @@ export default function ScrambleText({
     const [hasStarted, setHasStarted] = useState(false)
     const requestRef = useRef<number>()
     const startTimeRef = useRef<number>()
+    const lastUpdateRef = useRef<number>(0)
+    const FPS_THROTTLE = 50 // Update noise text every ~50ms instead of every 16ms
 
     useEffect(() => {
         let timeoutId: NodeJS.Timeout
@@ -44,15 +46,21 @@ export default function ScrambleText({
                 const revealRatio = Math.min(1, progress / duration)
                 setRevealProgress(revealRatio)
 
-                const scrambled = text
-                    .split("")
-                    .map((char) => {
-                        if (char === " " || char === "\n") return char
-                        return CHARS[Math.floor(Math.random() * CHARS.length)]
-                    })
-                    .join("")
+                // Only update the noise text every FPS_THROTTLE milliseconds
+                // This significantly reduces React re-renders and CPU load on mobile.
+                if (time - lastUpdateRef.current > FPS_THROTTLE) {
+                    const scrambled = text
+                        .split("")
+                        .map((char) => {
+                            if (char === " " || char === "\n") return char
+                            return CHARS[Math.floor(Math.random() * CHARS.length)]
+                        })
+                        .join("")
 
-                setNoiseText(scrambled)
+                    setNoiseText(scrambled)
+                    lastUpdateRef.current = time
+                }
+
                 requestRef.current = requestAnimationFrame(animate)
             } else {
                 setRevealProgress(1)
@@ -94,11 +102,11 @@ export default function ScrambleText({
                 ))}
             </span>
 
-            {/* 2. NOISE TEXT LAYER:
+            {/* 2. NOISE TEXT LAYER & CURSOR:
                  Mirrors the exact character-by-character layout of the real text to prevent
                  line wraps or widths from jumping wildly during the scramble.
             */}
-            {isScrambling && hasStarted && (
+            {(isScrambling || revealedIndex >= characters.length) && hasStarted && (
                 <span className="absolute inset-0 pointer-events-none whitespace-pre-wrap" aria-hidden="true">
                     {characters.map((char, index) => {
                         // FIX: Preserve spaces exactly as they are so the word wrapping matches Layer 1 perfectly!
@@ -106,13 +114,21 @@ export default function ScrambleText({
                             return <span key={`space-${index}`}>{char}</span>
                         }
 
+                        const isCursor = index === revealedIndex;
+                        const isNoise = index > revealedIndex;
+
                         return (
                             <span key={`noise-anchor-${index}`} className="relative inline-block">
                                 {/* Anchor lock to guarantee exact kerning/spacing */}
                                 <span className="opacity-0">{char}</span>
 
+                                {/* TERMINAL BLOCK CURSOR */}
+                                {isCursor && (
+                                    <span className="absolute inset-x-0 bottom-[5%] top-[5%] bg-white opacity-90 animate-pulse drop-shadow-[0_0_8px_rgba(255,255,255,0.6)]"></span>
+                                )}
+
                                 {/* The noise character sits perfectly inside the anchor */}
-                                {index >= revealedIndex && (
+                                {isNoise && isScrambling && (
                                     <span className="absolute top-0 left-1/2 -translate-x-1/2 text-white drop-shadow-md">
                                         {noiseText[index] || char}
                                     </span>
@@ -120,6 +136,8 @@ export default function ScrambleText({
                             </span>
                         )
                     })}
+
+                    {/* Final Blinking Cursor removed as per user request */}
                 </span>
             )}
         </span>

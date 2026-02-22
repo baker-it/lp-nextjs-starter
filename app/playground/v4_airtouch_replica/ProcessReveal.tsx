@@ -52,7 +52,7 @@ export const ProcessReveal = () => {
     }, []);
 
     return (
-        <section className="relative w-full py-24 bg-[#0a0a0a] overflow-hidden">
+        <section className="relative w-full py-24 bg-[#0f0f0f] overflow-hidden">
             <div className="container mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
 
                 {/* LEWA STRONA - "INŻYNIERIA" OBRAZ */}

@@ -102,7 +102,7 @@ export default function HeroBackground() {
                     50% { opacity: 1; transform: scale(1.05); }
                 }
                 .animate-pulse-slow {
-                    animation: pulse-slow 8s ease-in-out infinite;
+                    animation: pulse-slow 8s cubic-bezier(0.1, 0, 0.9, 1) infinite;
                 }
             `}</style>
         </div>

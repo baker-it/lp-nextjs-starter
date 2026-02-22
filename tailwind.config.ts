@@ -39,12 +39,12 @@ const config: Config = {
       },
       animation: {
         shine: 'shine 5s infinite',
-        breathing: 'breathing 30s ease-in-out infinite',
+        breathing: 'breathing 30s cubic-bezier(0.1, 0, 0.9, 1) infinite',
         "border-beam": "border-beam calc(var(--duration)*1s) infinite linear",
-        rocking: 'rocking 20s ease-in-out infinite',
-        'rocking-reverse': 'rocking-reverse 25s ease-in-out infinite',
-        'rocking-slow': 'rocking 30s ease-in-out infinite',
-        'rocking-reverse-slow': 'rocking-reverse 35s ease-in-out infinite',
+        rocking: 'rocking 20s cubic-bezier(0.1, 0, 0.9, 1) infinite',
+        'rocking-reverse': 'rocking-reverse 25s cubic-bezier(0.1, 0, 0.9, 1) infinite',
+        'rocking-slow': 'rocking 30s cubic-bezier(0.1, 0, 0.9, 1) infinite',
+        'rocking-reverse-slow': 'rocking-reverse 35s cubic-bezier(0.1, 0, 0.9, 1) infinite',
       }
     },
   },

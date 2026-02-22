@@ -32,7 +32,7 @@ const LEVELS = [
 
 export const RoadmapSection = () => {
     return (
-        <section className="relative w-full py-24 bg-[#0a0a0a] overflow-hidden">
+        <section className="relative w-full py-24 bg-[#0f0f0f] overflow-hidden">
             <div className="container mx-auto px-6">
                 <div className="text-center mb-20">
                     <div className="text-xs font-bold tracking-[0.2em] text-[#D4AF37] uppercase mb-4">Ścieżka Rozwoju</div>

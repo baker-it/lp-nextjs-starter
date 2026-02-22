@@ -14,10 +14,10 @@ const COUNTDOWN = { d: "02", h: "14", m: "35" };
 
 export const PricingCard = () => {
     return (
-        <section className="py-24 bg-[#050505] text-white relative overflow-hidden">
+        <section className="py-24 bg-[#161616] text-white relative overflow-hidden">
             {/* Carbon Fiber Texture */}
             <div className="absolute inset-0 opacity-20" style={{
-                backgroundImage: 'linear-gradient(45deg, #1a1a1a 25%, transparent 25%, transparent 75%, #1a1a1a 75%, #1a1a1a), linear-gradient(45deg, #1a1a1a 25%, transparent 25%, transparent 75%, #1a1a1a 75%, #1a1a1a)',
+                backgroundImage: 'linear-gradient(45deg, #161616 25%, transparent 25%, transparent 75%, #161616 75%, #161616), linear-gradient(45deg, #161616 25%, transparent 25%, transparent 75%, #161616 75%, #161616)',
                 backgroundSize: '20px 20px',
                 backgroundPosition: '0 0, 10px 10px'
             }}></div>

@@ -5,10 +5,7 @@ import { CertificateDisplay } from './CertificateDisplay';
 
 export const AuthoritySection = () => {
     return (
-        <section className="relative w-full py-24 bg-[#050505] overflow-hidden">
-            {/* Radial Gradient Background - Subtle warming behind the content */}
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,_rgba(212,175,55,0.08),_transparent_60%)] pointer-events-none" />
-
+        <section className="relative w-full py-24 bg-[#161616] overflow-hidden">
             <div className="container mx-auto px-6 relative z-10">
                 <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
 

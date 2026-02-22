@@ -11,7 +11,7 @@ const MOCK_DATA = {
 
 export const TransformationSection = () => {
     return (
-        <section className="py-24 bg-[#0f0f0f]">
+        <section className="py-24 bg-[#161616]">
             <div className="container mx-auto px-6 text-center">
                 <div className="text-xs font-bold tracking-[0.2em] text-[#D4AF37] uppercase mb-4">Social Proof / Transformation Section</div>
                 <h2 className="font-serif text-4xl md:text-5xl font-bold mb-16 text-white">PRZEMIANA</h2>
