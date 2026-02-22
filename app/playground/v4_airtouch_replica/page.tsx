@@ -225,7 +225,8 @@ export default function V4AirTouchReplica() {
                                 <div className="py-2">
                                     <ScrambleText
                                         text="INŻYNIERIA."
-                                        className="text-3xl md:text-7xl font-bold tracking-tight leading-tight text-transparent bg-clip-text bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#C5A028]"
+                                        className="text-3xl md:text-7xl font-bold tracking-tight leading-tight"
+                                        textClassName="text-transparent bg-clip-text bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#C5A028]"
                                         duration={2000}
                                         delay={200}
                                     />
@@ -240,7 +241,8 @@ export default function V4AirTouchReplica() {
                                 <div className="py-2">
                                     <ScrambleText
                                         text="SYSTEM AIRTOUCH."
-                                        className="text-3xl md:text-7xl font-bold tracking-tight leading-tight text-transparent bg-clip-text bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#C5A028]"
+                                        className="text-3xl md:text-7xl font-bold tracking-tight leading-tight"
+                                        textClassName="text-transparent bg-clip-text bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#C5A028]"
                                         duration={2500}
                                         delay={800}
                                     />
