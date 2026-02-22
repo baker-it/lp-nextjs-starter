@@ -202,7 +202,7 @@ export default function V4AirTouchReplica() {
                 {/* Interactive Background Component */}
                 <HeroBackground />
 
-                <div className="container mx-auto px-6 relative z-10 flex flex-col items-center justify-center text-center">
+                <div className="container mx-auto px-6 relative z-[100] flex flex-col items-center justify-center text-center">
                     <div className="w-full max-w-4xl mx-auto">
                         <h1 className="font-serif font-bold mb-12 text-center flex flex-col items-center">
                             {/* LINIA 1 */}
