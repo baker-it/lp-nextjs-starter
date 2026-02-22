@@ -104,7 +104,7 @@ export default function V4AirTouchReplica() {
         <div className={`${playfair.variable} ${inter.variable} font-sans bg-[#F9F7F2] text-[#1A1A1A] min-h-screen selection:bg-[#D4AF37] selection:text-white overflow-x-hidden`}>
 
             {/* STICKY NAVBAR */}
-            <nav className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${isScrolled || isMobileMenuOpen ? 'bg-[#050505]/80 backdrop-blur-md border-b border-white/10 py-4' : 'bg-transparent py-6'}`}>
+            <nav className={`fixed top-0 left-0 w-full z-[200] transition-all duration-300 ${isScrolled || isMobileMenuOpen ? 'bg-[#050505]/80 backdrop-blur-md border-b border-white/10 py-4' : 'bg-transparent py-6'}`}>
                 <div className="container mx-auto px-4 md:px-6 flex items-center justify-between">
                     {/* Logo */}
                     <div className="relative h-14 w-48 shrink-0 z-50">
@@ -155,7 +155,7 @@ export default function V4AirTouchReplica() {
             </nav>
 
             {/* FULLSCREEN MOBILE MENU OVERLAY */}
-            <div className={`fixed inset-0 z-40 bg-[#050505]/95 backdrop-blur-xl transition-all duration-500 flex flex-col pt-32 px-6 ${isMobileMenuOpen ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 -translate-y-full pointer-events-none'}`}>
+            <div className={`fixed inset-0 z-[190] bg-[#050505]/95 backdrop-blur-xl transition-all duration-500 flex flex-col pt-32 px-6 ${isMobileMenuOpen ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 -translate-y-full pointer-events-none'}`}>
                 <div className="flex flex-col gap-8 items-center text-center">
                     {["DLACZEGO AIRTOUCH?", "PROGRAM SZKOLENIA", "EFEKTY", "OPINIE"].map((item, i) => (
                         <a
