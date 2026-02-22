@@ -78,7 +78,7 @@ export default function HeroBackground() {
 
             {/* LAYER 4: Global Noise Overlay for premium sharpness */}
             <div className="absolute inset-0 z-[50] mix-blend-screen pointer-events-none animate-breathing">
-                <svg viewBox="0 0 700 700" className="w-full h-full" preserveAspectRatio="none" style={{ opacity: 0.65 }}>
+                <svg viewBox="0 0 700 700" className="w-full h-full" preserveAspectRatio="none" style={{ opacity: 0.70 }}>
                     <defs>
                         <filter id="nnnoise-filter" x="-20%" y="-20%" width="140%" height="140%" filterUnits="objectBoundingBox" primitiveUnits="userSpaceOnUse" colorInterpolationFilters="linearRGB">
                             <feTurbulence type="turbulence" baseFrequency="0.149" numOctaves="4" seed="15" stitchTiles="stitch" x="0%" y="0%" width="100%" height="100%" result="turbulence" />

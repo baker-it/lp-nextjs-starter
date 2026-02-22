@@ -202,22 +202,16 @@ export default function V4AirTouchReplica() {
                 {/* Interactive Background Component */}
                 <HeroBackground />
 
-                {/* Engineering Wave - Top Right */}
-                <AirflowMesh
-                    className="right-[-20%] top-[-10%] w-[800px] h-[800px] mix-blend-screen animate-[spin_60s_linear_infinite]"
-                    opacity={0.2}
-                />
-
-                <div className="container mx-auto px-6 relative z-10 flex flex-col lg:flex-row items-center gap-12">
-                    <div className="lg:w-1/2">
-                        <h1 className="font-serif font-bold mb-12 text-center md:text-left">
+                <div className="container mx-auto px-6 relative z-10 flex flex-col items-center justify-center text-center">
+                    <div className="w-full max-w-4xl mx-auto">
+                        <h1 className="font-serif font-bold mb-12 text-center flex flex-col items-center">
                             {/* LINIA 1 */}
                             <div className="text-white text-2xl md:text-7xl mb-6 md:mb-4">
                                 TO NIE SZTUKA.
                             </div>
 
                             {/* LINIA 2 */}
-                            <div className="flex flex-wrap items-baseline justify-center md:justify-start gap-x-3 mb-6 md:mb-4">
+                            <div className="flex flex-wrap items-baseline justify-center gap-x-3 mb-6 md:mb-4">
                                 <span className="text-white text-2xl md:text-7xl">
                                     TO
                                 </span>
@@ -234,7 +228,7 @@ export default function V4AirTouchReplica() {
                             </div>
 
                             {/* LINIA 3 */}
-                            <div className="flex flex-wrap items-baseline justify-center md:justify-start gap-x-3">
+                            <div className="flex flex-wrap items-baseline justify-center gap-x-3">
                                 <span className="text-white text-2xl md:text-7xl">
                                     OPANUJ
                                 </span>
@@ -249,14 +243,14 @@ export default function V4AirTouchReplica() {
                                 </div>
                             </div>
                         </h1>
-                        <p className="font-sans text-base md:text-lg text-gray-300 mb-20 max-w-lg leading-relaxed">
+                        <p className="font-sans text-base md:text-lg text-gray-300 mb-20 leading-relaxed mx-auto max-w-2xl">
                             {MOCK_DATA.hero.subheadline}
                         </p>
 
-                        <div className="flex flex-col gap-16 items-start">
+                        <div className="flex flex-col gap-16 items-center w-full max-w-md mx-auto">
                             {/* Main CTA with Holographic Border Beam Effect */}
-                            <div className="group relative rounded-sm cursor-pointer hover:scale-105 active:scale-[0.97] transition-transform duration-300">
-                                <button className="relative overflow-hidden group w-full h-full bg-gradient-to-r from-[#C5A028] to-[#E5C558] text-[#111] font-bold py-4 px-10 rounded-sm uppercase tracking-wide text-sm flex items-center gap-2">
+                            <div className="group relative rounded-sm cursor-pointer hover:scale-105 active:scale-[0.97] transition-transform duration-300 w-full">
+                                <button className="relative overflow-hidden group w-full bg-gradient-to-r from-[#C5A028] to-[#E5C558] text-[#111] font-bold py-5 px-10 rounded-sm uppercase tracking-wide text-sm flex justify-center items-center gap-2">
                                     {/* Beam 1: Lavender -> Blue */}
                                     <BorderBeam
                                         duration={6}
@@ -276,53 +270,30 @@ export default function V4AirTouchReplica() {
                                         className="from-transparent via-[#8EC5FC] to-transparent"
                                     />
 
-                                    <span className="relative z-10 flex items-center gap-2">
+                                    <span className="relative z-10 flex items-center justify-center gap-2">
                                         {MOCK_DATA.hero.cta}
-                                        <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                                        <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
                                     </span>
                                     {/* Shine Effect (Internal) */}
                                     <div className="absolute top-0 -left-[100%] w-full h-full bg-gradient-to-r from-transparent via-white/40 to-transparent skew-x-[-25deg] animate-shine"></div>
                                 </button>
                             </div>
 
-                            <div className="flex flex-col gap-3">
-                                <div className="flex items-center gap-3 text-sm text-gray-300">
+                            <div className="flex flex-col gap-4 w-full">
+                                <div className="flex items-center justify-center gap-3 text-sm text-gray-300">
                                     <Banknote className="w-5 h-5 text-[#D4AF37]" />
                                     <span>Wdróż usługę wycenianą na 1200 - 3000 PLN za wizytę.</span>
                                 </div>
-                                <div className="flex items-center gap-3 text-sm text-gray-300">
+                                <div className="flex items-center justify-center gap-3 text-sm text-gray-300">
                                     <ShieldCheck className="w-5 h-5 text-[#D4AF37]" />
                                     <span>100% Gwarancja Satysfakcji & Certyfikat Jakości TERST©.</span>
                                 </div>
-                                <div className="flex items-center gap-3 text-sm text-gray-300">
+                                <div className="flex items-center justify-center gap-3 text-sm text-gray-300">
                                     <Users className="w-5 h-5 text-[#D4AF37]" />
                                     <span>Metoda sprawdzona na 50+ klientkach.</span>
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                    <div className="lg:w-1/2 relative mt-12 lg:mt-0">
-                        <div className="relative z-10 rounded-t-[200px] overflow-hidden border-4 border-white/10 shadow-2xl max-w-md mx-auto">
-                            <Image
-                                src={MOCK_DATA.hero.image}
-                                alt="Hero Model"
-                                width={600}
-                                height={800}
-                                className="object-cover w-full h-auto"
-                                priority
-                            />
-                            {/* Badge */}
-                            <div className="absolute top-10 right-4 w-24 h-24 bg-gradient-to-br from-[#0D0A0F] to-[#1A1A1A] rounded-full flex items-center justify-center shadow-xl border-2 border-[#D4AF37] p-1 rotate-12">
-                                <div className="w-full h-full border border-[#D4AF37]/30 rounded-full flex flex-col items-center justify-center text-center p-2">
-                                    <span className="text-[8px] font-bold uppercase tracking-widest mb-1 text-gray-300">Master Class</span>
-                                    <Award className="w-6 h-6 text-[#D4AF37]" />
-                                    <span className="text-[8px] font-bold uppercase tracking-widest mt-1 text-gray-300">Certified</span>
-                                </div>
-                            </div>
-                        </div>
-                        {/* Decorative Circle */}
-                        <div className="absolute bottom-10 -left-10 w-32 h-32 bg-[#D4AF37] rounded-full blur-3xl opacity-10 -z-10"></div>
                     </div>
                 </div>
             </section>
