@@ -92,6 +92,9 @@ export default function HeroBackground() {
                 </svg>
             </div>
 
+            {/* LAYER 5: Bottom Fade-out Gradient for smooth section transition */}
+            <div className="absolute bottom-0 left-0 right-0 h-48 z-[60] bg-gradient-to-b from-transparent to-[#0f0f0f] pointer-events-none" />
+
             {/* Global Styles for custom animations if needed */}
             <style jsx global>{`
                 @keyframes pulse-slow {
