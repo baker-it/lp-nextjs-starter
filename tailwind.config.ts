@@ -23,7 +23,15 @@ const config: Config = {
         },
         breathing: {
           '0%, 100%': { transform: 'scale(1)' },
-          '50%': { transform: 'scale(1.1)' },
+          '50%': { transform: 'scale(1.25)' }, // Zwiększony efekt wchodzenia w ekran
+        },
+        rocking: {
+          '0%, 100%': { transform: 'rotate(-15deg)' },
+          '50%': { transform: 'rotate(15deg)' },
+        },
+        'rocking-reverse': {
+          '0%, 100%': { transform: 'rotate(15deg)' },
+          '50%': { transform: 'rotate(-15deg)' },
         },
         "border-beam": {
           "100%": { "offset-distance": "100%" },
@@ -33,6 +41,10 @@ const config: Config = {
         shine: 'shine 5s infinite',
         breathing: 'breathing 30s ease-in-out infinite',
         "border-beam": "border-beam calc(var(--duration)*1s) infinite linear",
+        rocking: 'rocking 20s ease-in-out infinite',
+        'rocking-reverse': 'rocking-reverse 25s ease-in-out infinite',
+        'rocking-slow': 'rocking 30s ease-in-out infinite',
+        'rocking-reverse-slow': 'rocking-reverse 35s ease-in-out infinite',
       }
     },
   },

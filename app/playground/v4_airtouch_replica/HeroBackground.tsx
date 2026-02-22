@@ -18,11 +18,16 @@ export default function HeroBackground() {
                     }}
                 />
 
-                {/* Gradient od góry do środka (z czarnego do przezroczystości) */}
-                <div className="absolute top-0 w-full h-[40%] bg-gradient-to-b from-[#050505] to-transparent z-10"></div>
+                {/* Winieta: Gradienty pionowe (Góra/Dół) */}
+                <div className="absolute top-0 w-full h-[30%] bg-gradient-to-b from-[#050505] to-transparent z-10 pointer-events-none"></div>
+                <div className="absolute bottom-0 w-full h-[30%] bg-gradient-to-t from-[#050505] to-transparent z-10 pointer-events-none"></div>
 
-                {/* Gradient od dołu do środka (z przezroczystości do czarnego) */}
-                <div className="absolute bottom-0 w-full h-[40%] bg-gradient-to-t from-[#050505] to-transparent z-10"></div>
+                {/* Winieta: Gradienty poziome (Lewo/Prawo) */}
+                {/* Gradient od lewej do środka (z czarnego do przezroczystości). Mocny, gładki spadek budujący tajemniczość. */}
+                <div className="absolute left-0 top-0 h-full w-[35%] md:w-[25%] bg-gradient-to-r from-[#050505] to-transparent z-10 pointer-events-none"></div>
+
+                {/* Gradient od prawej do środka (z przezroczystości do czarnego) */}
+                <div className="absolute right-0 top-0 h-full w-[35%] md:w-[25%] bg-gradient-to-l from-[#050505] to-transparent z-10 pointer-events-none"></div>
             </div>
 
             {/* LAYER 2: Light/Glow (Middle) - SAFE LAYERING (No mix-blend-mode) */}
@@ -35,25 +40,25 @@ export default function HeroBackground() {
             {/* LAYER 3: Engineering SVG (Top) */}
             <div className="absolute inset-0 z-20 opacity-40">
                 <svg className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[180%] h-[180%] md:w-[120%] md:h-[120%]" viewBox="0 0 100 100">
-                    {/* Circle 1: Thin Solid - Clockwise Slow */}
-                    <g className="origin-center animate-[spin_60s_linear_infinite]">
+                    {/* Circle 1: Thin Solid - Rocking */}
+                    <g className="origin-center animate-rocking">
                         <circle cx="50" cy="50" r="48" fill="none" stroke="#D4AF37" strokeWidth="0.3" opacity="0.3" />
                         <circle cx="50" cy="50" r="48" fill="none" stroke="#D4AF37" strokeWidth="0.15" strokeDasharray="1 4" opacity="0.5" />
                     </g>
 
-                    {/* Circle 2: Dashed - Counter-Clockwise */}
-                    <g className="origin-center animate-[spin_45s_linear_infinite_reverse]">
+                    {/* Circle 2: Dashed - Rocking Reverse */}
+                    <g className="origin-center animate-rocking-reverse">
                         <circle cx="50" cy="50" r="38" fill="none" stroke="#D4AF37" strokeWidth="0.45" strokeDasharray="4 6" opacity="0.6" />
                     </g>
 
-                    {/* Circle 3: Very Thin - Clockwise Very Slow */}
-                    <g className="origin-center animate-[spin_80s_linear_infinite]">
+                    {/* Circle 3: Very Thin - Rocking Slow */}
+                    <g className="origin-center animate-rocking-slow">
                         <circle cx="50" cy="50" r="28" fill="none" stroke="#D4AF37" strokeWidth="0.15" opacity="0.4" />
                         <circle cx="50" cy="50" r="28" fill="none" stroke="#D4AF37" strokeWidth="0.6" strokeDasharray="0.5 10" opacity="0.3" />
                     </g>
 
-                    {/* Circle 4: Extra Outer Ring - Counter-Clockwise Slow */}
-                    <g className="origin-center animate-[spin_70s_linear_infinite_reverse]">
+                    {/* Circle 4: Extra Outer Ring - Rocking Reverse Slow */}
+                    <g className="origin-center animate-rocking-reverse-slow">
                         <circle cx="50" cy="50" r="58" fill="none" stroke="#D4AF37" strokeWidth="0.15" opacity="0.2" />
                         <circle cx="50" cy="50" r="58" fill="none" stroke="#D4AF37" strokeWidth="0.3" strokeDasharray="2 8" opacity="0.4" />
                     </g>
