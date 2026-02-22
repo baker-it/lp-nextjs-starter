@@ -37,35 +37,43 @@ export default function HeroBackground() {
             {/* Bottom-Left Purple/Deep Blue Blob */}
             <div className="absolute bottom-[-40vw] right-[-40vw] w-[175vw] h-[175vw] md:bottom-[-10%] md:right-[-10%] md:w-[50vw] md:h-[50vw] bg-[radial-gradient(circle,rgba(49,46,129,0.6)_0%,transparent_70%)] blur-[80px] pointer-events-none z-10"></div>
 
-            {/* LAYER 3: Engineering SVG (Top) */}
-            <div className="absolute inset-0 z-20 opacity-40">
-                <svg className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[180%] h-[180%] md:w-[120%] md:h-[120%]" viewBox="0 0 100 100">
-                    {/* Circle 1: Thin Solid - Rocking */}
-                    <g className="origin-center animate-rocking">
-                        <circle cx="50" cy="50" r="48" fill="none" stroke="#D4AF37" strokeWidth="0.3" opacity="0.3" />
-                        <circle cx="50" cy="50" r="48" fill="none" stroke="#D4AF37" strokeWidth="0.15" strokeDasharray="1 4" opacity="0.5" />
-                    </g>
+            {/* LAYER 3: Engineering SVG (Top) - 3D Platform (Kierunek 3 Perspective) + Rocking Animation (Kierunek 2 Motion) */}
+            <div className="absolute inset-0 z-20 opacity-60" style={{ perspective: '1200px' }}>
+                <div
+                    className="absolute top-[60%] left-1/2 w-[250%] h-[250%] md:w-[160%] md:h-[160%]"
+                    style={{
+                        transform: 'translate(-50%, -50%) rotateX(75deg) rotateY(0deg) rotateZ(0deg)',
+                        transformStyle: 'preserve-3d'
+                    }}
+                >
+                    <svg className="w-full h-full" viewBox="0 0 100 100">
+                        {/* Circle 1: Thin Solid - Rocking */}
+                        <g className="origin-center animate-rocking">
+                            <circle cx="50" cy="50" r="48" fill="none" stroke="#D4AF37" strokeWidth="0.3" opacity="0.3" />
+                            <circle cx="50" cy="50" r="48" fill="none" stroke="#D4AF37" strokeWidth="0.15" strokeDasharray="1 4" opacity="0.5" />
+                        </g>
 
-                    {/* Circle 2: Dashed - Rocking Reverse */}
-                    <g className="origin-center animate-rocking-reverse">
-                        <circle cx="50" cy="50" r="38" fill="none" stroke="#D4AF37" strokeWidth="0.45" strokeDasharray="4 6" opacity="0.6" />
-                    </g>
+                        {/* Circle 2: Dashed - Rocking Reverse */}
+                        <g className="origin-center animate-rocking-reverse">
+                            <circle cx="50" cy="50" r="38" fill="none" stroke="#D4AF37" strokeWidth="0.45" strokeDasharray="4 6" opacity="0.6" />
+                        </g>
 
-                    {/* Circle 3: Very Thin - Rocking Slow */}
-                    <g className="origin-center animate-rocking-slow">
-                        <circle cx="50" cy="50" r="28" fill="none" stroke="#D4AF37" strokeWidth="0.15" opacity="0.4" />
-                        <circle cx="50" cy="50" r="28" fill="none" stroke="#D4AF37" strokeWidth="0.6" strokeDasharray="0.5 10" opacity="0.3" />
-                    </g>
+                        {/* Circle 3: Very Thin - Rocking Slow */}
+                        <g className="origin-center animate-rocking-slow">
+                            <circle cx="50" cy="50" r="28" fill="none" stroke="#D4AF37" strokeWidth="0.15" opacity="0.4" />
+                            <circle cx="50" cy="50" r="28" fill="none" stroke="#D4AF37" strokeWidth="0.6" strokeDasharray="0.5 10" opacity="0.3" />
+                        </g>
 
-                    {/* Circle 4: Extra Outer Ring - Rocking Reverse Slow */}
-                    <g className="origin-center animate-rocking-reverse-slow">
-                        <circle cx="50" cy="50" r="58" fill="none" stroke="#D4AF37" strokeWidth="0.15" opacity="0.2" />
-                        <circle cx="50" cy="50" r="58" fill="none" stroke="#D4AF37" strokeWidth="0.3" strokeDasharray="2 8" opacity="0.4" />
-                    </g>
+                        {/* Circle 4: Extra Outer Ring - Rocking Reverse Slow */}
+                        <g className="origin-center animate-rocking-reverse-slow">
+                            <circle cx="50" cy="50" r="58" fill="none" stroke="#D4AF37" strokeWidth="0.15" opacity="0.2" />
+                            <circle cx="50" cy="50" r="58" fill="none" stroke="#D4AF37" strokeWidth="0.3" strokeDasharray="2 8" opacity="0.4" />
+                        </g>
 
-                    {/* Center Static Elements */}
-                    <circle cx="50" cy="50" r="15" fill="none" stroke="#D4AF37" strokeWidth="0.15" opacity="0.2" />
-                </svg>
+                        {/* Center Static Elements */}
+                        <circle cx="50" cy="50" r="15" fill="none" stroke="#D4AF37" strokeWidth="0.15" opacity="0.2" />
+                    </svg>
+                </div>
             </div>
 
             {/* Global Styles for custom animations if needed */}
