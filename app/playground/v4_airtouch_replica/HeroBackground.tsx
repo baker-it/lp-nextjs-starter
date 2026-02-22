@@ -6,15 +6,23 @@ import Image from 'next/image'
 export default function HeroBackground() {
     return (
         <div className="absolute inset-0 overflow-hidden pointer-events-none select-none bg-[#050505]">
-            {/* LAYER 1: Texture (Bottom) */}
-            <div className="absolute inset-0 z-0 animate-breathing">
-                <Image
-                    src="/sss.jpg"
-                    alt="Texture"
-                    fill
-                    className="object-cover opacity-20"
-                    priority
+            {/* LAYER 1: Texture (Bottom) - Tiled Option combined with Gradients */}
+            <div className="absolute inset-0 z-0 animate-breathing flex flex-col justify-center items-center" style={{ height: 'min(150vh, 1200px)' }}>
+                {/* Tło kafelkowe ustalone na całą szerokość i wysokość kontenera */}
+                <div
+                    className="absolute inset-0 opacity-[0.25]"
+                    style={{
+                        backgroundImage: "url('/sss.jpg')",
+                        backgroundRepeat: "repeat",
+                        backgroundSize: "400px"
+                    }}
                 />
+
+                {/* Gradient od góry do środka (z czarnego do przezroczystości) */}
+                <div className="absolute top-0 w-full h-[40%] bg-gradient-to-b from-[#050505] to-transparent z-10"></div>
+
+                {/* Gradient od dołu do środka (z przezroczystości do czarnego) */}
+                <div className="absolute bottom-0 w-full h-[40%] bg-gradient-to-t from-[#050505] to-transparent z-10"></div>
             </div>
 
             {/* LAYER 2: Light/Glow (Middle) - SAFE LAYERING (No mix-blend-mode) */}
